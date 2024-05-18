@@ -1,0 +1,16 @@
+{
+  "name": "api-electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "app": "electron app.js",
+    "browser-window": "electron browser-window.js",
+    "ipc-main": "electron ipc-main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^30.0.6"
+  }
+}
