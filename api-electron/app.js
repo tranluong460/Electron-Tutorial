@@ -7,15 +7,19 @@ function createWindow() {
   });
 
   win.loadFile("index.html");
-
-  win.on("blur", () => {
-    console.log("Xay ra khi cua so trinh duyet mat tieu diem.");
-  });
-
-  win.on("focus", () => {
-    console.log("Xay ra khi cua so trinh duyet co tieu diem.");
-  });
 }
+
+app.on("browser-window-created", () => {
+  console.log("Xay ra khi cua so trinh duyet da duoc tao");
+});
+
+app.on("browser-window-blur", () => {
+  console.log("Xay ra khi cua so trinh duyet mat tieu diem.");
+});
+
+app.on("browser-window-focus", () => {
+  console.log("Xay ra khi cua so trinh duyet co tieu diem.");
+});
 
 app.on("will-finish-launching", () => {
   console.log("Xay ra khi ung dung chuan bi hoan tat viec khoi dong.");
