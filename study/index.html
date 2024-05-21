@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File</title>
+
+    <style>
+        .ip-disabled {
+            border: none;
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Create File</h1>
+
+    <div>
+        <input type="text" id="input-file-name" placeholder="File name">
+
+        <select id="select-file-extension">
+            <option value="txt">TXT</option>
+            <option value="json">JSON</option>
+        </select>
+
+        <textarea cols="30" id="data-file-create" placeholder="File Data"></textarea>
+
+        <button id="btn-create-file">Create File</button>
+    </div>
+
+    <hr />
+
+    <h1>Edit File</h1>
+
+    <div>
+        <button id="btn-choose-file">Choose File</button>
+        <input id="file-choose" class="ip-disabled" value="No file choose" disabled></input>
+
+        <textarea id="data-file-select"></textarea>
+        <button id="btn-edit-file">Edit File</button>
+    </div>
+
+    <hr />
+
+    <h1>Delete File</h1>
+
+    <div>
+        <button id="btn-choose-folder">Choose Folder</button>
+        <input id="folder-choose" class="ip-disabled" value="No file choose" disabled></input>
+
+        <select id="data-folder-choose"></select>
+
+        <button id="btn-delete-file-in-folder">Delete File</button>
+    </div>
+</body>
+
+<script src="./renderer.js"></script>
+
+</html>
