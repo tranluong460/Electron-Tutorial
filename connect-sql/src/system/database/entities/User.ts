@@ -15,7 +15,7 @@ export class User extends BaseEntity {
   apiToken: string | null
 
   @Column('nvarchar', { nullable: true })
-  refeshToken: string | null
+  refreshToken: string | null
 
   @Column('nvarchar', { default: 'Bearer', nullable: true })
   tokenType: string | null | 'Bearer'
