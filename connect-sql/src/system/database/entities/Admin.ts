@@ -4,5 +4,4 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 export class Admin extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
-    
 }

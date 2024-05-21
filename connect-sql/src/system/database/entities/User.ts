@@ -30,10 +30,6 @@ export class User extends BaseEntity {
       to: (value: Date) => value
     }
   })
-
-
-
-
   declare expiresAt: Date
 
   // @Column('nvarchar', { nullable: true })
