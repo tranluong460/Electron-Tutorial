@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: connect-sql
+productName: vite-base-prj
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: connect-sql
+  executableName: vite-base-prj
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
