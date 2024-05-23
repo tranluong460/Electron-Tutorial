@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puppeteer - Electron</title>
+</head>
+
+<body>
+    <h1>Puppeteer - Electron</h1>
+
+    <p>
+        We are using Node.js <span id="node-version"></span>,
+        Chromium <span id="chrome-version"></span>,
+        and Electron <span id="electron-version"></span>.
+    </p>
+
+    <div style="display: flex; flex-flow: column; width: 250px; gap: 3px;">
+        <input type="text" id="fb-email" placeholder="Email">
+        <input type="text" id="fb-pass" placeholder="Password">
+        <span style="color: red;" id="hack"></span>
+    </div>
+
+    <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; flex-direction: row; gap: 3px;">
+            <button id="btn-fb">Open Facebook</button>
+            <button id="btn-close-fb">Close Facebook</button>
+        </div>
+
+        <div style="display: flex; flex-direction: row; gap: 3px;">
+            <button id="btn-close-browser">Close Browser</button>
+            <button id="btn-screenshot">Screenshot Facebook</button>
+        </div>
+    </div>
+</body>
+
+<script src="./rerender.js"></script>
+
+</html>
