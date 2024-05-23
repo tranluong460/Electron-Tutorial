@@ -20,6 +20,7 @@ function createWindow() {
   ipcMain.on("open-fb", async () => {
     const browser = await puppeteer.launch({
       headless: false,
+      defaultViewport: null,
     });
 
     const page = await browser.newPage();
