@@ -8,8 +8,8 @@ const getPathApp = (dir = [""]) => {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 400,
+    height: 500,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
@@ -36,6 +36,11 @@ function createWindow() {
 
     ipcMain.on("close-browser", async () => {
       await browser.close();
+    });
+
+    ipcMain.on("base-account-facebook", async () => {
+      await page.type("#email", "email-example@gmail.com");
+      await page.type("#pass", "pass-example@gmail.com");
     });
 
     ipcMain.on("screenshot-fb", async () => {

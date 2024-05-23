@@ -10,6 +10,9 @@ contextBridge.exposeInMainWorld("electronAPI", {
   closeBrowser: () => {
     ipcRenderer.send("close-browser");
   },
+  baseAccountFacebook: () => {
+    ipcRenderer.send("base-account-facebook");
+  },
   screenshotFacebook: () => {
     ipcRenderer.send("screenshot-fb");
   },

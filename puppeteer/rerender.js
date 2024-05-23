@@ -2,6 +2,7 @@ const btnFb = document.getElementById("btn-fb");
 const btnCloseFb = document.getElementById("btn-close-fb");
 const btnCloseBrowser = document.getElementById("btn-close-browser");
 const btnScreenshotFb = document.getElementById("btn-screenshot");
+const btnBaseAccount = document.getElementById("btn-base-account");
 
 const fbEmail = document.getElementById("fb-email");
 const fbPass = document.getElementById("fb-pass");
@@ -9,6 +10,10 @@ const hack = document.getElementById("hack");
 
 btnFb.addEventListener("click", () => {
   window.electronAPI.openFacebook();
+});
+
+btnBaseAccount.addEventListener("click", () => {
+  window.electronAPI.baseAccountFacebook();
 });
 
 btnCloseFb.addEventListener("click", () => {
