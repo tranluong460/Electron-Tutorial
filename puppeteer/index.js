@@ -15,7 +15,7 @@ function createWindow() {
     },
   });
 
-  win.loadFile("index.html");
+  win.loadFile("metruyencv.html");
 
   ipcMain.on("open-fb", async () => {
     const browser = await puppeteer.launch({
