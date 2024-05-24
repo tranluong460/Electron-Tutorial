@@ -23,4 +23,7 @@ declare global {
     scratchBookToElement(payload: IScratch): Promise<void>
     scratchBookToApi(payload: IScratchApi): Promise<void>
   }
+  interface IpcRendererToolYoutube {
+    increaseViews(payload: IIncreaseViewYoutube): Promise<void>
+  }
 }

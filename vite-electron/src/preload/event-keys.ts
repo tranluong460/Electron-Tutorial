@@ -32,6 +32,9 @@ const eventKeys = {
   metruyencv: {
     scratchToElement: 'metruyencv:scratch-to-element',
     scratchToApi: 'metruyencv:scratch-to-api'
+  },
+  toolYoutube: {
+    increaseViews: 'tool-youtube:increase-views'
   }
 }
 export default eventKeys

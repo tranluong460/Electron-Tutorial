@@ -2,12 +2,14 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import ToolViewYoutube from './components/ToolViewYoutube'
 // import App from './App'
-import Metruyencv from './Metruyencv'
+// import Metruyencv from './Metruyencv'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     {/* <App /> */}
-    <Metruyencv />
+    {/* <Metruyencv /> */}
+    <ToolViewYoutube />
   </React.StrictMode>
 )

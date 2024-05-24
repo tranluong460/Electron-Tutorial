@@ -20,6 +20,12 @@ declare global {
     firstChapter: string
     lastChapter: string
   }
+  type IIncreaseViewYoutube = {
+    keyword: string[]
+    stream: number
+    loop: number
+    delay: number
+  }
   type IScratchApi = {
     apiUrl: string
     fileExtension: string

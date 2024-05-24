@@ -10,5 +10,6 @@ declare global {
     demo: IpcRendererDemo
     excel: IpcRendererExcel
     metruyencv: IpcRendererMetruyencv
+    toolYoutube: IpcRendererToolYoutube
   }
 }

@@ -4,12 +4,13 @@ import { BrowserWindow, app, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
 import { IpcMainAuth, IpcMainDemo, IpcMainExcel, IpcMainMetruyencv } from './ipcs'
+import { IpcMainToolYoutube } from './ipcs/tool-youtube'
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 450,
+    height: 400,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -52,6 +53,7 @@ app.whenReady().then(() => {
   })
 
   AppDataSource.initialize().then(() => {
+    IpcMainToolYoutube()
     IpcMainAuth()
     IpcMainDemo()
     IpcMainExcel()
