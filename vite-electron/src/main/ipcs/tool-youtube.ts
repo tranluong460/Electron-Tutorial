@@ -7,7 +7,7 @@ export const IpcMainToolYoutube = (): void => {
     let currentIndex = 0
 
     const { stream, loop, delay, keyword } = payload
-    const limitWorkerCreate = Math.min(stream, keyword.length)
+    const limitWorkerCreate = stream > keyword.length ? keyword.length : stream
 
     const createWorker = (index: number): void => {
       workerAPI({
