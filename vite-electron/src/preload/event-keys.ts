@@ -28,6 +28,10 @@ const eventKeys = {
     exportFile: 'excel:export_excel',
     exportJson: 'json:export_json',
     importTxt: 'txt:import_txt'
+  },
+  metruyencv: {
+    scratchToElement: 'metruyencv:scratch-to-element',
+    scratchToApi: 'metruyencv:scratch-to-api'
   }
 }
 export default eventKeys

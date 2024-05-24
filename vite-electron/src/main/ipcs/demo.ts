@@ -1,6 +1,6 @@
 import { ipcMain } from 'electron'
 import { crud } from '../../preload/event-keys'
-import { DemoModel } from '../../system/database/models/Demo'
+import { DemoModel } from '../../system/database/models'
 import { Demo } from '../../system/database/entities'
 
 export const IpcMainDemo = (): void => {

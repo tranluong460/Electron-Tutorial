@@ -19,4 +19,8 @@ declare global {
     exportOneFileJson(payload: Demo): Promise<void>
     importOneTxt(): Promise<void>
   }
+  interface IpcRendererMetruyencv {
+    scratchBookToElement(payload: IScratch): Promise<void>
+    scratchBookToApi(payload: IScratchApi): Promise<void>
+  }
 }

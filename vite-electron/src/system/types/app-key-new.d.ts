@@ -8,6 +8,24 @@ declare global {
     hash: string
     remember?: boolean
   }
+  type IDataChapter = {
+    indexChapter: number | undefined
+    name: string | undefined
+    title: string | undefined
+    chapterDetail: string | undefined
+  }
+  type IScratch = {
+    bookUrl: string
+    fileExtension: string
+    firstChapter: string
+    lastChapter: string
+  }
+  type IScratchApi = {
+    apiUrl: string
+    fileExtension: string
+    limit: number
+    page: number
+  }
   type IDemoNew = {
     id?: number
     name: string

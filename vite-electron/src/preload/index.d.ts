@@ -9,5 +9,6 @@ declare global {
     auth: IpcRendererAuth
     demo: IpcRendererDemo
     excel: IpcRendererExcel
+    metruyencv: IpcRendererMetruyencv
   }
 }

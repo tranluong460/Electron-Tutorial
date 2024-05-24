@@ -3,7 +3,7 @@ import { AppDataSource } from '@system/database/data-source'
 import { BrowserWindow, app, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { IpcMainAuth, IpcMainDemo, IpcMainExcel } from './ipcs'
+import { IpcMainAuth, IpcMainDemo, IpcMainExcel, IpcMainMetruyencv } from './ipcs'
 
 function createWindow(): void {
   // Create the browser window.
@@ -55,6 +55,7 @@ app.whenReady().then(() => {
     IpcMainAuth()
     IpcMainDemo()
     IpcMainExcel()
+    IpcMainMetruyencv()
     createWindow()
   })
 

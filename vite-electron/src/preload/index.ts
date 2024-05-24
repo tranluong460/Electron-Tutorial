@@ -1,12 +1,13 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge } from 'electron'
-import { ipcRendererAuth, ipcRendererDemo, ipcRendererExcel } from './ipcs'
+import { ipcRendererAuth, ipcRendererDemo, ipcRendererExcel, ipcRendererMetruyencv } from './ipcs'
 
 // Custom APIs for renderer
 const api = {
   auth: ipcRendererAuth,
   demo: ipcRendererDemo,
-  excel: ipcRendererExcel
+  excel: ipcRendererExcel,
+  metruyencv: ipcRendererMetruyencv
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
