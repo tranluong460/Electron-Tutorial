@@ -39,7 +39,7 @@ const toolViewYoutube = async (): Promise<void> => {
     await page.mouse.wheel({ deltaY: 200 })
   }
 
-  await delay(workerData.delay * 5000)
+  await delay(workerData.delay * 60000)
 
   browser.close()
 }
