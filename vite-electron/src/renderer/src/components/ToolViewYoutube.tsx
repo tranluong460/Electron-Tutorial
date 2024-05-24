@@ -64,7 +64,7 @@ const ToolViewYoutube = (): JSX.Element => {
           type="number"
           value={stream}
           min={1}
-          max={2}
+          max={10}
           placeholder="Số luồng chạy"
           style={inputStyle}
           onChange={(e) => setStream(Number(e.target.value))}
