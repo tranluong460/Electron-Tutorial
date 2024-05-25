@@ -16,8 +16,10 @@ export const IpcMainToolYoutube = (): void => {
         .on('error', (err) => console.log(err))
         .on('exit', () => {
           if (currentIndex < keyword.length) {
-            createWorker(currentIndex++)
+            return createWorker(currentIndex++)
           }
+
+          console.log('Successfully!!!')
         })
     }
 

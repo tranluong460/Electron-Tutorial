@@ -12,9 +12,11 @@ const ViewYoutube = (): JSX.Element => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { id, value } = e.target
 
+    if (id === 'keyword') value.split(',')
+
     setViewYoutube((prevState) => ({
       ...prevState,
-      [id]: value
+      [id]: id === 'keyword' ? value.split(',') : value
     }))
   }
 
