@@ -21,7 +21,7 @@ const toolViewYoutube = async (): Promise<void> => {
 
   await page.type('#search-input input', workerData.keyword)
 
-  await page.click('#search-icon-legacy')
+  await page.click('#center #search-icon-legacy')
 
   await page.waitForSelector('a#video-title')
 
