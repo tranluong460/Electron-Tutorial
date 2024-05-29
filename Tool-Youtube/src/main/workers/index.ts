@@ -1,6 +1,5 @@
 import puppeteer, { Page, Browser } from 'puppeteer'
 import axios from 'axios'
-import { workerData } from 'worker_threads'
 
 export const createBrowser = async (): Promise<{
   browser: Browser
@@ -13,20 +12,11 @@ export const createBrowser = async (): Promise<{
       '--disable-blink-features=AutomationControlled',
       '--force-device-scale-factor=1',
       '--window-size=320,480',
-      workerData?.language ? `--lang=${workerData.language}` : '--lang=vi',
-      workerData?.proxy &&
-        `--proxy-server=${workerData.proxy.SERVER_IP}:${workerData.proxy.SERVER_PORT}`
+      '--lang=vi'
     ]
   })
 
   const page = (await browser.pages())[0]
-
-  if (workerData?.proxy) {
-    await page.authenticate({
-      username: workerData.proxy.USERNAME,
-      password: workerData.proxy.PASSWORD
-    })
-  }
 
   return { browser, page }
 }
