@@ -1,5 +1,6 @@
 import { parentPort, workerData } from 'worker_threads'
-import { createBrowser } from '.'
+import { createBrowser, delay, getCodeCaptcha } from '.'
+import { KeyboardTypeOptions, Page, WaitForSelectorOptions } from 'puppeteer'
 
 const port = parentPort
 if (!port) throw new Error('IllegalState')
@@ -8,48 +9,143 @@ if (!port) throw new Error('IllegalState')
 const selectors = {
   loginButton: '#buttons [button-next]',
   emailInput: 'input#identifierId',
-  emailNextButton: '#identifierNext button',
-  captchaImage: 'img[id="captchaimg"]',
-  captchaInput: 'input[id="ca"]',
-  passwordInput: '#password input',
-  passwordNextButton: '#passwordNext button',
-  challengeSelect: 'div[data-challengeid="8"]',
-  countryListSelect: 'div[id="countryList"]',
-  vnValue: 'li[data-value="vn"]',
-  phoneInput: 'input[id="phoneNumberId"]'
+  passwordInput: 'input[name="Passwd"]',
+  captchaImage: 'img#captchaimg',
+  captchaInput: 'input#ca',
+  verifySelect: 'div[data-challengeid="8"]',
+  countryList: '#countryList [aria-live="polite"]',
+  valueSelect: 'li[data-value="vn"]',
+  phoneInput: 'input#phoneNumberId'
 }
 // cspell: enable
+
+const checkSelector = async (
+  page: Page,
+  selector: string,
+  options?: WaitForSelectorOptions
+): Promise<boolean> => {
+  try {
+    await delay(3000)
+    await page.waitForSelector(selector, options)
+
+    const elements = await page.$$eval(selector, (els) => {
+      return els
+    })
+
+    return elements.length > 0 ? true : false
+  } catch (error) {
+    return false
+  }
+}
+
+const writeText = async (
+  page: Page,
+  selector: string,
+  text: string,
+  options?: KeyboardTypeOptions,
+  enter: boolean = true
+): Promise<boolean> => {
+  try {
+    await delay(3000)
+    await page.type(selector, text, options)
+    if (enter) await page.keyboard.press('Enter')
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+const clickSelector = async (page: Page, selector: string): Promise<boolean> => {
+  try {
+    await delay(3000)
+    await page.click(selector)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+const decodedCaptchaImage = async (page: Page, selector: string): Promise<string> => {
+  try {
+    const imageSrc = await page.evaluate((selector) => {
+      const element = document.querySelector(selector) as HTMLImageElement
+      return element ? element.src : ''
+    }, selector)
+
+    if (!imageSrc) return ''
+
+    const captcha = await getCodeCaptcha(imageSrc)
+
+    console.log({ imageSrc, captcha })
+
+    if (!captcha) return ''
+
+    return captcha
+  } catch (error) {
+    return ''
+  }
+}
 
 const testWorker = async (): Promise<void> => {
   const { page } = await createBrowser()
 
-  // Đến trang đăng nhập
   await page.goto('https://www.youtube.com/', { waitUntil: 'networkidle0' })
   await page.click(selectors.loginButton)
 
-  // Nhập email
-  await page.waitForSelector(selectors.emailInput, { visible: true })
-  await page.type(selectors.emailInput, workerData.account.email, { delay: 120 })
-  await page.click(selectors.emailNextButton)
+  const isEmailInput = await checkSelector(page, selectors.emailInput)
+  if (isEmailInput) {
+    await writeText(page, selectors.emailInput, workerData.account.email, { delay: 120 })
 
-  // Kiểm tra xem có captcha không
+    const isCaptchaImage = await checkSelector(page, selectors.captchaImage)
+    if (isCaptchaImage) {
+      const captcha = await decodedCaptchaImage(page, selectors.captchaImage)
 
-  // Giải captcha
+      if (captcha) {
+        await writeText(page, selectors.captchaInput, captcha, { delay: 120 })
+      }
+    }
+  }
 
-  // Nhập captcha
+  const isPasswordInput = await checkSelector(page, selectors.passwordInput)
+  if (isPasswordInput) {
+    await writeText(page, selectors.passwordInput, workerData.account.password, { delay: 120 })
 
-  // Nhập mật khẩu
-  await page.waitForSelector(selectors.passwordInput, { visible: true })
-  await page.type(selectors.passwordInput, workerData.account.password, { delay: 120 })
-  await page.click(selectors.passwordNextButton)
+    const isCaptchaImage = await checkSelector(page, selectors.captchaImage)
+    if (isCaptchaImage) {
+      const captcha = await decodedCaptchaImage(page, selectors.captchaImage)
 
-  // Chọn cách đăng nhập
+      if (captcha) {
+        await writeText(
+          page,
+          selectors.passwordInput,
+          workerData.account.password,
+          { delay: 120 },
+          false
+        )
+        await writeText(page, selectors.captchaInput, captcha, { delay: 120 })
+      }
+    }
+  }
 
-  // Chọn quốc gia
+  const isVerifySelect = await checkSelector(page, selectors.verifySelect)
+  if (isVerifySelect) {
+    await clickSelector(page, selectors.verifySelect)
+  }
 
-  // Nhập số điện thoại
+  const isCountrySelect = await checkSelector(page, selectors.countryList)
+  if (isCountrySelect) {
+    await clickSelector(page, selectors.countryList)
 
-  // Passkey
+    const isValueSelect = await checkSelector(page, selectors.valueSelect)
+    if (isValueSelect) {
+      await clickSelector(page, selectors.valueSelect)
+
+      const isPhoneInput = await checkSelector(page, selectors.phoneInput)
+      if (isPhoneInput) {
+        await writeText(page, selectors.phoneInput, workerData.account.phone, { delay: 120 })
+      }
+    }
+  }
 }
 
 testWorker()

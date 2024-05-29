@@ -1,5 +1,6 @@
 import puppeteer, { Page, Browser } from 'puppeteer'
 import axios from 'axios'
+import { workerData } from 'worker_threads'
 
 export const createBrowser = async (): Promise<{
   browser: Browser
@@ -12,12 +13,20 @@ export const createBrowser = async (): Promise<{
       '--disable-blink-features=AutomationControlled',
       '--force-device-scale-factor=1',
       '--window-size=320,480',
-      '--start-maximized',
-      '--lang=vi'
+      workerData?.language ? `--lang=${workerData.language}` : '--lang=vi',
+      workerData?.proxy &&
+        `--proxy-server=${workerData.proxy.SERVER_IP}:${workerData.proxy.SERVER_PORT}`
     ]
   })
 
   const page = (await browser.pages())[0]
+
+  if (workerData?.proxy) {
+    await page.authenticate({
+      username: workerData.proxy.USERNAME,
+      password: workerData.proxy.PASSWORD
+    })
+  }
 
   return { browser, page }
 }
@@ -33,17 +42,14 @@ export const delay = async (ms: number): Promise<void> =>
   await new Promise((resolve) => setTimeout(resolve, ms))
 
 // cspell: disable
-export const decodeCaptchaImage = async (imageUrl: string): Promise<string | null> => {
+export const getCodeCaptcha = async (imageUrl: string): Promise<string | null> => {
   if (!imageUrl) return null
-
-  const key = '8e74bd7ce443e11fec525995bad4b6bd'
-  const type = 14
 
   try {
     const response = await customAxios.post('/captcha', {
-      apikey: key,
+      apikey: 'bc62ddaa19ce77193fbaac0036ddb77a',
       img: imageUrl,
-      type
+      type: 14
     })
 
     return response.data.captcha
