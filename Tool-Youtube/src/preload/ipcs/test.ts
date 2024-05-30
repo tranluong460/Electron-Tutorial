@@ -4,5 +4,6 @@ import { eventKeys } from '@preload/event-keys'
 export const ipcRendererTest = {
   ipcHandle: (payload: ITestNew): Promise<void> =>
     ipcRenderer.invoke(eventKeys.test.ipcHandle, payload),
-  openYoutube: (): Promise<void> => ipcRenderer.invoke(eventKeys.test.openYoutube)
+  openYoutube: (): Promise<void> => ipcRenderer.invoke(eventKeys.test.openYoutube),
+  registerGoogle: (): Promise<void> => ipcRenderer.invoke(eventKeys.test.registerGoogle)
 }

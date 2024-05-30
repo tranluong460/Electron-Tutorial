@@ -1,6 +1,6 @@
-import { KeyboardTypeOptions, Page, WaitForSelectorOptions } from 'puppeteer'
-import { delay, getCodeCaptcha } from '.'
+import { Page } from 'puppeteer'
 import { workerData } from 'worker_threads'
+import { checkSelector, clickSelector, decodedCaptchaImage, writeText } from '.'
 
 // cspell: disable
 const selectors = {
@@ -16,76 +16,6 @@ const selectors = {
   avatar: 'button#avatar-btn'
 }
 // cspell: enable
-
-const delay_time = 2000
-const timeout = 3000
-
-const checkSelector = async (
-  page: Page,
-  selector: string,
-  options?: WaitForSelectorOptions
-): Promise<boolean> => {
-  try {
-    await delay(delay_time)
-    await page.waitForSelector(selector, { timeout, ...options })
-
-    const elements = await page.$$eval(selector, (els) => {
-      return els
-    })
-
-    return elements.length > 0 ? true : false
-  } catch (error) {
-    return false
-  }
-}
-
-const writeText = async (
-  page: Page,
-  selector: string,
-  text: string,
-  options?: KeyboardTypeOptions,
-  enter: boolean = true
-): Promise<boolean> => {
-  try {
-    await delay(delay_time)
-    await page.type(selector, text, options)
-    if (enter) await page.keyboard.press('Enter')
-    return true
-  } catch (error) {
-    return false
-  }
-}
-
-const clickSelector = async (page: Page, selector: string): Promise<boolean> => {
-  try {
-    await delay(delay_time)
-    await page.click(selector)
-    return true
-  } catch (error) {
-    return false
-  }
-}
-
-const decodedCaptchaImage = async (page: Page, selector: string): Promise<string> => {
-  try {
-    const imageSrc = await page.evaluate((selector) => {
-      const element = document.querySelector(selector) as HTMLImageElement
-      return element ? element.src : ''
-    }, selector)
-
-    if (!imageSrc) return ''
-
-    const captcha = await getCodeCaptcha(imageSrc)
-
-    console.log({ imageSrc, captcha })
-
-    if (!captcha) return ''
-
-    return captcha
-  } catch (error) {
-    return ''
-  }
-}
 
 export const loginYoutube = async (page: Page): Promise<boolean> => {
   try {

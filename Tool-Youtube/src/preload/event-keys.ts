@@ -17,7 +17,8 @@ const crud = (
 const eventKeys = {
   test: {
     ipcHandle: 'test:ipc_handle',
-    openYoutube: 'test:open_youtube'
+    openYoutube: 'test:open_youtube',
+    registerGoogle: 'test:register_google'
   }
 }
 

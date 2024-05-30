@@ -16,7 +16,8 @@ const getPathUser = (dir: string[]): string => {
 
 // App Path
 export const APP_DIR = getPathApp()
-export const ACCOUNT_FILE = getPathUser(['accounts.json'])
+export const ACCOUNT_FILE = getPathUser(['accounts.xlsx'])
+export const ACCOUNTs_FILE = getPathUser(['accounts.json'])
 
 // Path file
 export const DB_FILE = getPathUser([`${APP_ID}.db`])

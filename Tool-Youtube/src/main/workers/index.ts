@@ -1,4 +1,4 @@
-import puppeteer, { Page, Browser } from 'puppeteer'
+import puppeteer, { Page, Browser, KeyboardTypeOptions, WaitForSelectorOptions } from 'puppeteer'
 import axios from 'axios'
 
 export const createBrowser = async (): Promise<{
@@ -48,3 +48,73 @@ export const getCodeCaptcha = async (imageUrl: string): Promise<string | null> =
   }
 }
 // cspell: enable
+
+const delay_time = 2000
+const timeout = 3000
+
+export const checkSelector = async (
+  page: Page,
+  selector: string,
+  options?: WaitForSelectorOptions
+): Promise<boolean> => {
+  try {
+    await delay(delay_time)
+    await page.waitForSelector(selector, { timeout, ...options })
+
+    const elements = await page.$$eval(selector, (els) => {
+      return els
+    })
+
+    return elements.length > 0 ? true : false
+  } catch (error) {
+    return false
+  }
+}
+
+export const writeText = async (
+  page: Page,
+  selector: string,
+  text: string,
+  options?: KeyboardTypeOptions,
+  enter: boolean = true
+): Promise<boolean> => {
+  try {
+    await delay(delay_time)
+    await page.type(selector, text, options)
+    if (enter) await page.keyboard.press('Enter')
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+export const clickSelector = async (page: Page, selector: string): Promise<boolean> => {
+  try {
+    await delay(delay_time)
+    await page.click(selector)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+export const decodedCaptchaImage = async (page: Page, selector: string): Promise<string> => {
+  try {
+    const imageSrc = await page.evaluate((selector) => {
+      const element = document.querySelector(selector) as HTMLImageElement
+      return element ? element.src : ''
+    }, selector)
+
+    if (!imageSrc) return ''
+
+    const captcha = await getCodeCaptcha(imageSrc)
+
+    console.log({ imageSrc, captcha })
+
+    if (!captcha) return ''
+
+    return captcha
+  } catch (error) {
+    return ''
+  }
+}
