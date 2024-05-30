@@ -11,7 +11,7 @@ export const IpcMainTest = (): void => {
   ipcMain.handle(eventKeys.test.openYoutube, (): void => {
     const account_list = require(ACCOUNT_FILE)
 
-    for (let index = 0; index < 3; index++) {
+    for (let index = 0; index < 1; index++) {
       const account = account_list[Math.floor(Math.random() * account_list.length)]
 
       createWorker({ workerData: { account } })

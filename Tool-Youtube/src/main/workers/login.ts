@@ -17,7 +17,8 @@ const selectors = {
 }
 // cspell: enable
 
-const delay_time = 3000
+const delay_time = 2000
+const timeout = 3000
 
 const checkSelector = async (
   page: Page,
@@ -26,7 +27,7 @@ const checkSelector = async (
 ): Promise<boolean> => {
   try {
     await delay(delay_time)
-    await page.waitForSelector(selector, { timeout: 5000, ...options })
+    await page.waitForSelector(selector, { timeout, ...options })
 
     const elements = await page.$$eval(selector, (els) => {
       return els
