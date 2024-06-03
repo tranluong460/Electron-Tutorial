@@ -3,16 +3,17 @@ import { join } from 'path'
 import { AppDataSource } from '@system/database/data-source'
 import { app, shell, BrowserWindow } from 'electron'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import { IpcMainTest } from './ipcs'
+import { IpcMainAuth, IpcMainYoutube } from './ipcs'
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    minWidth: 900,
+    minHeight: 670,
     show: false,
     autoHideMenuBar: true,
-    // frame: false,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -54,7 +55,8 @@ app.whenReady().then(() => {
 
   AppDataSource.initialize().then(() => {
     createWindow()
-    IpcMainTest()
+    IpcMainAuth()
+    IpcMainYoutube()
   })
 
   app.on('activate', function () {
