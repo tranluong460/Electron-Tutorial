@@ -13,7 +13,7 @@ export const IpcMainYoutube = (): void => {
   ipcMain.handle(eventKeys.youtube.importExcel, async (): Promise<IDataExcelYoutube[]> => {
     const result = await dialog.showOpenDialog({
       properties: ['openFile'],
-      filters: [{ name: 'XLSX', extensions: ['xlsx'] }]
+      filters: [{ name: 'XLSX', extensions: ['xlsx', 'xls'] }]
     })
 
     if (result.canceled || result.filePaths.length === 0) return []
