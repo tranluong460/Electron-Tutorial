@@ -15,5 +15,31 @@ export const AccountYoutubeModel = {
     }
 
     return false
+  },
+  deleteAccount: async (payload: string[]): Promise<boolean> => {
+    try {
+      await accountYoutubeQB()
+        .delete()
+        .from(AccountYoutube)
+        .where('email IN(:...emails)', { emails: payload })
+        .execute()
+
+      return true
+    } catch (error) {
+      console.log('account youtube modal - delete account', error)
+    }
+
+    return false
+  },
+  editAccount: async (payload: AccountYoutube): Promise<boolean> => {
+    try {
+      await accountYoutubeQB().where('id = :id', { id: payload.id }).update().set(payload).execute()
+
+      return true
+    } catch (error) {
+      console.log('account youtube modal - edit account', error)
+    }
+
+    return false
   }
 }

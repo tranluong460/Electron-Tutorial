@@ -11,7 +11,9 @@ declare global {
   interface IpcRendererYoutube {
     getAllAccount(): Promise<AccountYoutube[]>
     importExcel(): Promise<IDataExcelYoutube[]>
-    createNewDataExcel(payload: IDataExcelYoutube[]): Promise<boolean>
+    createNewDataExcel(payload: IDataExcelYoutube[] | AccountYoutube): Promise<boolean>
     seedingVideo(payload: ISeedingNew): Promise<boolean>
+    deleteAccount(payload: string[]): Promise<boolean>
+    editAccount(payload: AccountYoutube): Promise<boolean>
   }
 }

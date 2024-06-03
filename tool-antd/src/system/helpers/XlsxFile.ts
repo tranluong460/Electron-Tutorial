@@ -20,7 +20,7 @@ export default class XlsxFile {
       if (!ws) return []
 
       const data: IDataExcelYoutube[] = []
-      const columns = ['email', 'phone', 'password']
+      const columns = ['email', 'password', 'phone']
       const rowCount = ws.rowCount
 
       for (let rowIndex = 1; rowIndex <= rowCount; rowIndex++) {

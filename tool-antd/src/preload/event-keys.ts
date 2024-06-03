@@ -24,7 +24,9 @@ const eventKeys = {
     getAllAccount: 'youtube:get_all_account',
     importExcel: 'youtube:import_excel',
     createNewDataExcel: 'youtube:create_new_data_excel',
-    seedingVideo: 'youtube:seeding_video'
+    seedingVideo: 'youtube:seeding_video',
+    deleteAccount: 'youtube:delete_account',
+    editAccount: 'youtube:edit_account'
   }
 }
 

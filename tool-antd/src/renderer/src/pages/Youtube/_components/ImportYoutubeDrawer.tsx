@@ -1,7 +1,8 @@
 import { Youtube } from '@renderer/apis'
 import { useState } from 'react'
-import { Button, Drawer, Flex, Table, message } from 'antd'
-import type { TableProps } from 'antd'
+import { Button, Drawer, Flex, Form, Input, Table, message } from 'antd'
+import type { FormProps, TableProps } from 'antd'
+import { AccountYoutube } from '@system/database/entities'
 
 type ImportAccountYoutubeDrawerProps = {
   openDrawer: boolean
@@ -73,6 +74,34 @@ const ImportYoutubeDrawer = ({
     })
   }
 
+  const onFinish: FormProps<AccountYoutube>['onFinish'] = async (values) => {
+    if (!values) return
+
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Loading...'
+    })
+
+    await Youtube.createNewDataExcel(values).then((result) => {
+      if (result) {
+        messageApi.open({
+          key,
+          type: 'success',
+          content: 'Nhập dữ liệu thành công'
+        })
+
+        toggleOpenDrawer()
+      } else {
+        messageApi.open({
+          key,
+          type: 'error',
+          content: 'Nhập dữ liệu thất bại'
+        })
+      }
+    })
+  }
+
   return (
     <>
       {contextHolder}
@@ -96,6 +125,32 @@ const ImportYoutubeDrawer = ({
           <Flex align="center" justify="end">
             <Button onClick={toggleImportExcel}>Excel</Button>
           </Flex>
+
+          <Form
+            layout="vertical"
+            className="p-5"
+            style={{ maxWidth: 600 }}
+            onFinish={onFinish}
+            autoComplete="off"
+          >
+            <Form.Item<AccountYoutube> label="Email" name="email">
+              <Input />
+            </Form.Item>
+
+            <Form.Item<AccountYoutube> label="Mật khẩu" name="password">
+              <Input />
+            </Form.Item>
+
+            <Form.Item<AccountYoutube> label="Số điện thoại" name="phone">
+              <Input />
+            </Form.Item>
+
+            <Form.Item wrapperCol={{ offset: 6 }}>
+              <Button type="primary" htmlType="submit">
+                Thêm
+              </Button>
+            </Form.Item>
+          </Form>
 
           <Table rowKey="email" bordered columns={columns} dataSource={dataAccount} />
         </Flex>

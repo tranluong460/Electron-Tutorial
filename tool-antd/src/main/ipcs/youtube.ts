@@ -24,7 +24,6 @@ export const IpcMainYoutube = (): void => {
   ipcMain.handle(eventKeys.youtube.getAllAccount, async (): Promise<AccountYoutube[]> => {
     return await AccountYoutubeModel.getAllAccount()
   })
-
   ipcMain.handle(eventKeys.youtube.importExcel, async (): Promise<IDataExcelYoutube[]> => {
     const result = await dialog.showOpenDialog({
       properties: ['openFile'],
@@ -43,12 +42,10 @@ export const IpcMainYoutube = (): void => {
 
     return data
   })
-
   ipcMain.handle(eventKeys.youtube.createNewDataExcel, async (_, payload): Promise<boolean> => {
     await delay(1000)
     return await AccountYoutubeModel.createNewDataExcel(payload)
   })
-
   ipcMain.handle(
     eventKeys.youtube.seedingVideo,
     async (_, payload: ISeedingNew): Promise<boolean> => {
@@ -64,4 +61,11 @@ export const IpcMainYoutube = (): void => {
       return true
     }
   )
+  ipcMain.handle(eventKeys.youtube.deleteAccount, async (_, payload): Promise<boolean> => {
+    return await AccountYoutubeModel.deleteAccount(payload)
+  })
+  ipcMain.handle(eventKeys.youtube.editAccount, async (_, payload): Promise<boolean> => {
+    await delay(1000)
+    return await AccountYoutubeModel.editAccount(payload)
+  })
 }

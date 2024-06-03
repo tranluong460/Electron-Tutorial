@@ -1,15 +1,27 @@
-import { Table } from 'antd'
+import { Button, Table } from 'antd'
 import { Youtube } from '@renderer/apis/youtube'
-import { IAccountYoutube } from '@renderer/interface'
 import { AccountYoutube } from '@system/database/entities'
-import { TitleTableYoutube } from './_components'
+import { EditModal, TitleTableYoutube } from './_components'
 import { useEffect, useState } from 'react'
 import type { TableProps } from 'antd'
 
 const ManagerYoutube = (): JSX.Element => {
   const [dataAccount, setDataAccount] = useState<AccountYoutube[]>()
+  const [dataSelection, setDataSelection] = useState<string[]>([])
+  const [dataEdit, setDataEdit] = useState<AccountYoutube | null>(null)
+  const [openModalEdit, setOpenModalEdit] = useState(false)
 
-  const columns: TableProps<IAccountYoutube>['columns'] = [
+  const handleEdit = (dataEdit: AccountYoutube): void => {
+    setDataEdit(dataEdit)
+    setOpenModalEdit(true)
+  }
+
+  const toggleModal = (): void => {
+    setDataEdit(null)
+    setOpenModalEdit(!openModalEdit)
+  }
+
+  const columns: TableProps<AccountYoutube>['columns'] = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -30,8 +42,23 @@ const ManagerYoutube = (): JSX.Element => {
       title: 'Phone',
       dataIndex: 'phone',
       key: 'phone'
+    },
+    {
+      title: 'Hành động',
+      key: 'action',
+      render: (_t, r) => (
+        <div>
+          <Button onClick={() => handleEdit(r)}>Sửa</Button>
+        </div>
+      )
     }
   ]
+
+  const rowSelection = {
+    onChange: (selectedRowKeys): void => {
+      setDataSelection(selectedRowKeys)
+    }
+  }
 
   const getDataAccount = async (): Promise<void> =>
     await Youtube.getAllAccount().then((result) => {
@@ -43,13 +70,23 @@ const ManagerYoutube = (): JSX.Element => {
   }, [dataAccount])
 
   return (
-    <Table
-      title={() => <TitleTableYoutube />}
-      bordered
-      rowKey="email"
-      columns={columns}
-      dataSource={dataAccount}
-    />
+    <>
+      <Table
+        rowSelection={{
+          type: 'checkbox',
+          ...rowSelection
+        }}
+        title={() => <TitleTableYoutube dataSelection={dataSelection} />}
+        bordered
+        rowKey="email"
+        columns={columns}
+        dataSource={dataAccount}
+      />
+
+      {dataEdit && (
+        <EditModal dataEdit={dataEdit} toggleModal={toggleModal} openModalEdit={openModalEdit} />
+      )}
+    </>
   )
 }
 
