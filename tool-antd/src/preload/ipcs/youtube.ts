@@ -11,5 +11,8 @@ export const ipcRendererYoutube = {
   },
   createNewDataExcel: async (payload: IDataExcelYoutube[]): Promise<boolean> => {
     return await ipcRenderer.invoke(eventKeys.youtube.createNewDataExcel, payload)
+  },
+  seedingVideo: async (payload: ISeedingNew): Promise<boolean> => {
+    return await ipcRenderer.invoke(eventKeys.youtube.seedingVideo, payload)
   }
 }

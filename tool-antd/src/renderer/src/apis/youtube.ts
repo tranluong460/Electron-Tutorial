@@ -9,5 +9,8 @@ export const Youtube = {
   },
   createNewDataExcel: async (payload: IDataExcelYoutube[]): Promise<boolean> => {
     return await window.api.youtube.createNewDataExcel(payload)
+  },
+  seedingVideo: async (payload: ISeedingNew): Promise<boolean> => {
+    return await window.api.youtube.seedingVideo(payload)
   }
 }

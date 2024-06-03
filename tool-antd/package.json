@@ -29,6 +29,7 @@
     "antd": "^5.17.4",
     "better-sqlite3": "^10.0.0",
     "electron-updater": "^6.1.7",
+    "fastq": "^1.17.1",
     "puppeteer": "^22.10.0",
     "react-router-dom": "^6.23.1",
     "reflect-metadata": "^0.2.2",

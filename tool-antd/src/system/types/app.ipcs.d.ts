@@ -12,5 +12,6 @@ declare global {
     getAllAccount(): Promise<AccountYoutube[]>
     importExcel(): Promise<IDataExcelYoutube[]>
     createNewDataExcel(payload: IDataExcelYoutube[]): Promise<boolean>
+    seedingVideo(payload: ISeedingNew): Promise<boolean>
   }
 }

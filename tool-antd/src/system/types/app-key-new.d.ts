@@ -9,4 +9,10 @@ declare global {
   interface IDataExcelYoutube {
     [key: string]: CellValue
   }
+  interface ISeedingNew {
+    stream: number
+    links: string[]
+    actions: string[]
+    comments: string[]
+  }
 }
