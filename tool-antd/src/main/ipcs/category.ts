@@ -13,4 +13,8 @@ export const IpcMainCategory = (): void => {
     await delay(1000)
     return CategoryYoutubeModel.getAllCategory()
   })
+  ipcMain.handle(eventKeys.category.edit, async (_, payload): Promise<boolean> => {
+    await delay(1000)
+    return CategoryYoutubeModel.edit(payload)
+  })
 }

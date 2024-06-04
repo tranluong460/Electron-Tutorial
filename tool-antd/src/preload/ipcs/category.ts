@@ -8,5 +8,8 @@ export const ipcRendererCategory = {
   },
   getAll: async (): Promise<ICategory[]> => {
     return await ipcRenderer.invoke(eventKeys.category.getAll)
+  },
+  edit: async (payload: ICategory): Promise<boolean> => {
+    return await ipcRenderer.invoke(eventKeys.category.edit, payload)
   }
 }

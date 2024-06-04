@@ -6,5 +6,8 @@ export const Category = {
   },
   getAll: async (): Promise<ICategory[]> => {
     return await window.api.category.getAll()
+  },
+  edit: async (payload: ICategory): Promise<boolean> => {
+    return await window.api.category.edit(payload)
   }
 }

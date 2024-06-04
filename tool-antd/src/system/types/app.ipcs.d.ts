@@ -19,5 +19,6 @@ declare global {
   interface IpcRendererCategory {
     create: (payload: ICategoryNew) => Promise<boolean>
     getAll: () => Promise<Category[]>
+    edit: (payload: Category) => Promise<boolean>
   }
 }
