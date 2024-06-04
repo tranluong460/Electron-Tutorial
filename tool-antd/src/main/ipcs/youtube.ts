@@ -88,17 +88,21 @@ export const IpcMainYoutube = (): void => {
     eventKeys.youtube.seedingVideo,
     async (_, payload: ISeedingNew): Promise<boolean> => {
       const { links, comments, stream, accounts, actions } = payload
-      const run = links.length > stream ? stream : links.length
 
-      const queue = fastq(createWorker, run)
+      const queue = fastq(createWorker, stream)
 
       const account_list = await AccountYoutubeModel.getAccountById(accounts)
 
-      for (let index = 0; index < links.length; index++) {
+      const totalTasks = links.length * account_list.length
+
+      for (let index = 0; index < totalTasks; ++index) {
+        const indexLink = Math.floor(index / account_list.length)
+        const indexAcc = index % account_list.length
+
         queue.push({
-          link: links[index],
-          comment: comments.length > 1 ? comments[index] : comments[0],
-          account: account_list.length > 1 ? account_list[index] : account_list[0],
+          link: links[indexLink],
+          comment: comments[Math.floor(Math.random() * comments.length)],
+          account: account_list[indexAcc],
           actions
         })
       }
