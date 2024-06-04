@@ -11,6 +11,7 @@ declare global {
   }
   interface ISeedingNew {
     stream: number
+    accounts: number[]
     links: string[]
     actions: string[]
     comments: string[]

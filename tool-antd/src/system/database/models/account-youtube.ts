@@ -1,5 +1,6 @@
 import { AccountYoutube } from './../entities'
 import { accountYoutubeQB, accountYoutubeRepo } from '../data-source'
+import { In } from 'typeorm'
 
 export const AccountYoutubeModel = {
   getAllAccount: async (): Promise<AccountYoutube[]> => {
@@ -8,6 +9,13 @@ export const AccountYoutubeModel = {
         categoryId: true
       }
     })
+  },
+  getAccountById: async (payload: number[]): Promise<AccountYoutube[]> => {
+    return await accountYoutubeQB()
+      .where({
+        id: In(payload)
+      })
+      .getMany()
   },
   createNewDataExcel: async (payload: IDataExcelYoutube): Promise<boolean> => {
     try {

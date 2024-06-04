@@ -7,9 +7,9 @@ import { delay } from '@system/helpers'
 import workerApi from '@main/workers/youtube/seedingWorker?nodeWorker'
 import fastq from 'fastq'
 
-const createWorker = async ({ link, comment }, cb): Promise<void> => {
+const createWorker = async (data, cb): Promise<void> => {
   workerApi({
-    workerData: { link, comment }
+    workerData: data
   })
     .on('message', (message) => {
       console.log(message)
@@ -49,13 +49,19 @@ export const IpcMainYoutube = (): void => {
   ipcMain.handle(
     eventKeys.youtube.seedingVideo,
     async (_, payload: ISeedingNew): Promise<boolean> => {
-      const { links, comments, stream } = payload
+      const { links, comments, stream, accounts } = payload
       const run = links.length > stream ? stream : links.length
 
       const queue = fastq(createWorker, run)
 
+      const account_list = await AccountYoutubeModel.getAccountById(accounts)
+
       for (let index = 0; index < links.length; index++) {
-        queue.push({ link: links[index], comment: comments[index] })
+        queue.push({
+          link: links[index],
+          comment: comments[index],
+          account: account_list[index]
+        })
       }
 
       return true

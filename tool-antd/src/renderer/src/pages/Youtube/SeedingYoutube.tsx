@@ -1,15 +1,20 @@
 import { Youtube } from '@renderer/apis'
-import { Button, Form, Input, Checkbox, InputNumber, Flex } from 'antd'
+import { AccountYoutube } from '@system/database/entities'
+import { Button, Form, Input, Checkbox, InputNumber, Flex, Select } from 'antd'
 import type { FormProps } from 'antd'
+import { useEffect, useState } from 'react'
 
 type FieldType = {
   stream: string
   link: string
   actions: string[]
   comments: string
+  accounts: number[]
 }
 
 const SeedingYoutube = (): JSX.Element => {
+  const [dataAccount, setDataAccount] = useState<AccountYoutube[]>()
+
   const checkBoxOptions = [
     { label: 'Like', value: 'like' },
     { label: 'Dislike', value: 'dislike' },
@@ -32,10 +37,16 @@ const SeedingYoutube = (): JSX.Element => {
       links: newLinks,
       comments: newComments,
       stream: Number(values.stream)
-    }).then((result) => {
-      console.log(result)
     })
   }
+
+  useEffect(() => {
+    const getDataAccount = async (): Promise<void> => {
+      await Youtube.getAllAccount().then((data) => setDataAccount(data))
+    }
+
+    getDataAccount()
+  }, [])
 
   return (
     <Flex align="center" justify="center" vertical={true} gap={50}>
@@ -54,6 +65,19 @@ const SeedingYoutube = (): JSX.Element => {
           rules={[{ required: true, message: 'Vui lòng nhập số luồng chạy!' }]}
         >
           <InputNumber />
+        </Form.Item>
+
+        <Form.Item label="Chọn tài khoản" name="accounts">
+          <Select
+            mode="multiple"
+            options={
+              dataAccount &&
+              dataAccount.map((account) => ({
+                label: account.email,
+                value: account.id
+              }))
+            }
+          />
         </Form.Item>
 
         <Form.Item<FieldType>
