@@ -17,4 +17,8 @@ export const IpcMainCategory = (): void => {
     await delay(1000)
     return CategoryYoutubeModel.edit(payload)
   })
+  ipcMain.handle(eventKeys.category.delete, async (_, payload): Promise<boolean> => {
+    await delay(1000)
+    return CategoryYoutubeModel.delete(payload)
+  })
 }

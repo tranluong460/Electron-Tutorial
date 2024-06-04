@@ -31,7 +31,8 @@ const eventKeys = {
   category: {
     create: 'category:create',
     getAll: 'category:get_all',
-    edit: 'category:edit'
+    edit: 'category:edit',
+    delete: 'category:delete'
   }
 }
 

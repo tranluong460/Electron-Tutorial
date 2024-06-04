@@ -7,6 +7,7 @@ import type { FormProps } from 'antd'
 
 const CategoryYoutube = (): JSX.Element => {
   const [dataCategory, setDataCategory] = useState<ICategory[]>([])
+  const [dataSelection, setDataSelection] = useState<number[]>([])
   const [dataEdit, setDataEdit] = useState<ICategory | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -81,16 +82,38 @@ const CategoryYoutube = (): JSX.Element => {
   const checkCategory = async (): Promise<void> =>
     await Category.getAll().then((data) => setDataCategory(data))
 
+  const rowSelection = {
+    onChange: (selectedRowKeys): void => {
+      setDataSelection(selectedRowKeys)
+    }
+  }
+
+  const handleDelete = async (): Promise<void> => {
+    if (dataSelection.length === 0) {
+      message.success('Chọn ít nhất 1 dữ liệu')
+      return
+    }
+
+    await Category.delete(dataSelection)
+  }
+
   useEffect(() => {
     checkCategory()
-  }, [])
+  }, [dataCategory])
 
   return (
     <Table
-      rowKey="name"
+      rowSelection={{
+        type: 'checkbox',
+        ...rowSelection
+      }}
+      rowKey="id"
       title={() => (
         <Flex align="center" justify="end" gap="large">
           <Button onClick={toggleModal}>Thêm</Button>
+          <Button danger onClick={handleDelete}>
+            Xóa danh mục
+          </Button>
 
           <Modal
             key={dataEdit ? dataEdit.id : 'Add'}

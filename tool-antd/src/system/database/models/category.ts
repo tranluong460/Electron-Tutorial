@@ -26,5 +26,16 @@ export const CategoryYoutubeModel = {
     }
 
     return false
+  },
+  delete: async (payload: number[]): Promise<boolean> => {
+    try {
+      await categoryQB().delete().from(Category).where('id IN(:...ids)', { ids: payload }).execute()
+
+      return true
+    } catch (error) {
+      console.log('category youtube modal - delete', error)
+    }
+
+    return false
   }
 }

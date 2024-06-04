@@ -9,5 +9,8 @@ export const Category = {
   },
   edit: async (payload: ICategory): Promise<boolean> => {
     return await window.api.category.edit(payload)
+  },
+  delete: async (payload: number[]): Promise<boolean> => {
+    return await window.api.category.delete(payload)
   }
 }

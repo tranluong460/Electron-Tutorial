@@ -11,5 +11,8 @@ export const ipcRendererCategory = {
   },
   edit: async (payload: ICategory): Promise<boolean> => {
     return await ipcRenderer.invoke(eventKeys.category.edit, payload)
+  },
+  delete: async (payload: number[]): Promise<boolean> => {
+    return await ipcRenderer.invoke(eventKeys.category.delete, payload)
   }
 }
