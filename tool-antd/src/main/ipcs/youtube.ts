@@ -62,6 +62,7 @@ export const IpcMainYoutube = (): void => {
     }
   )
   ipcMain.handle(eventKeys.youtube.deleteAccount, async (_, payload): Promise<boolean> => {
+    await delay(1000)
     return await AccountYoutubeModel.deleteAccount(payload)
   })
   ipcMain.handle(eventKeys.youtube.editAccount, async (_, payload): Promise<boolean> => {

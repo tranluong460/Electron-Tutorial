@@ -1,4 +1,4 @@
-import { categoryQB } from '../data-source'
+import { accountYoutubeQB, categoryQB } from '../data-source'
 import { Category } from '../entities'
 
 export const CategoryYoutubeModel = {
@@ -34,6 +34,23 @@ export const CategoryYoutubeModel = {
       return true
     } catch (error) {
       console.log('category youtube modal - delete', error)
+    }
+
+    return false
+  },
+  setCategory: async (payload: ISetCategoryNew): Promise<boolean> => {
+    try {
+      await accountYoutubeQB()
+        .update()
+        .set({
+          categoryId: payload.category
+        })
+        .where('email IN (:...emails)', { emails: payload.dataAccount })
+        .execute()
+
+      return true
+    } catch (error) {
+      console.log('category youtube modal - set category', error)
     }
 
     return false

@@ -10,7 +10,6 @@ export const IpcMainCategory = (): void => {
     return CategoryYoutubeModel.create(payload)
   })
   ipcMain.handle(eventKeys.category.getAll, async (): Promise<ICategory[]> => {
-    await delay(1000)
     return CategoryYoutubeModel.getAllCategory()
   })
   ipcMain.handle(eventKeys.category.edit, async (_, payload): Promise<boolean> => {
@@ -20,5 +19,9 @@ export const IpcMainCategory = (): void => {
   ipcMain.handle(eventKeys.category.delete, async (_, payload): Promise<boolean> => {
     await delay(1000)
     return CategoryYoutubeModel.delete(payload)
+  })
+  ipcMain.handle(eventKeys.category.setCategory, async (_, payload): Promise<boolean> => {
+    await delay(1000)
+    return CategoryYoutubeModel.setCategory(payload)
   })
 }

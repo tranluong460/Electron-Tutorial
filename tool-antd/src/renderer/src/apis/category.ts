@@ -12,5 +12,8 @@ export const Category = {
   },
   delete: async (payload: number[]): Promise<boolean> => {
     return await window.api.category.delete(payload)
+  },
+  setCategory: async (payload: ISetCategoryNew): Promise<boolean> => {
+    return await window.api.category.setCategory(payload)
   }
 }

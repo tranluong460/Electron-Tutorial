@@ -18,4 +18,8 @@ declare global {
   interface ICategoryNew {
     name: string
   }
+  interface ISetCategoryNew {
+    category: ICategory
+    dataAccount: string[]
+  }
 }

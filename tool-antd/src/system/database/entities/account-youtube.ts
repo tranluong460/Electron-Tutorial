@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Category } from './category'
 
 @Entity()
 export class AccountYoutube extends BaseEntity {
@@ -13,4 +14,7 @@ export class AccountYoutube extends BaseEntity {
 
   @Column('nvarchar')
   phone: string
+
+  @ManyToOne(() => Category, (category) => category.id, { onDelete: 'CASCADE' })
+  categoryId: Category
 }

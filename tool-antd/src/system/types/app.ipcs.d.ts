@@ -21,5 +21,6 @@ declare global {
     getAll: () => Promise<Category[]>
     edit: (payload: Category) => Promise<boolean>
     delete: (payload: number[]) => Promise<boolean>
+    setCategory: (payload: ISetCategoryNew) => Promise<boolean>
   }
 }

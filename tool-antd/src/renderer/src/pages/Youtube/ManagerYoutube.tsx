@@ -1,4 +1,4 @@
-import { Button, Table } from 'antd'
+import { Button, Table, Tag } from 'antd'
 import { Youtube } from '@renderer/apis/youtube'
 import { AccountYoutube } from '@system/database/entities'
 import { EditModal, TitleTableYoutube } from './_components'
@@ -44,6 +44,12 @@ const ManagerYoutube = (): JSX.Element => {
       key: 'phone'
     },
     {
+      title: 'Danh mục',
+      dataIndex: 'categoryId',
+      key: 'categoryId.id',
+      render: (_t) => _t && <Tag color="magenta">{_t.name}</Tag>
+    },
+    {
       title: 'Hành động',
       key: 'action',
       render: (_t, r) => (
@@ -65,7 +71,7 @@ const ManagerYoutube = (): JSX.Element => {
 
   useEffect(() => {
     getDataAccount()
-  }, [])
+  }, [dataAccount])
 
   return (
     <>
