@@ -9,7 +9,7 @@ const youtubeWorker = async (): Promise<void> => {
 
   if (!isLogin) return browser.close()
 
-  await seedingWorker(page)
+  await seedingWorker(page, browser)
 }
 
 youtubeWorker()

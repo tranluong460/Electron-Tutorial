@@ -15,6 +15,7 @@ declare global {
   }
   interface ISeedingNew {
     stream: number
+    max_time_video: number
     accounts: number[]
     links: string[]
     actions: string[]

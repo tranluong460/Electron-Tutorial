@@ -1,5 +1,6 @@
-import { Page } from 'puppeteer'
+import { Browser, Page } from 'puppeteer'
 import { parentPort, workerData } from 'worker_threads'
+import { checkSelector } from '.'
 
 const port = parentPort
 if (!port) throw new Error('IllegalState')
@@ -9,13 +10,13 @@ const selectors = {
   placeholderArea: '#placeholder-area',
   commentInput: '#creation-box #contenteditable-root',
   submitButton: '#submit-button',
-  likeButton: '.YtLikeButtonViewModelHost button',
-  dislikeButton: '.YtDislikeButtonViewModelHost button',
+  likeButton: '.YtLikeButtonViewModelHost button[aria-pressed="false"]',
+  dislikeButton: '.YtDislikeButtonViewModelHost button[aria-pressed="false"]',
   subscribeButton: '#subscribe-button-shape button'
 }
 // cspell: enable
 
-export const seedingWorker = async (page: Page): Promise<boolean> => {
+export const seedingWorker = async (page: Page, browser: Browser): Promise<boolean> => {
   await page.goto(workerData.link, { waitUntil: 'networkidle0' })
 
   await page.evaluate(
@@ -35,13 +36,19 @@ export const seedingWorker = async (page: Page): Promise<boolean> => {
   )
 
   if (workerData.actions.includes('like')) {
-    await page.waitForSelector(selectors.likeButton)
-    await page.click(selectors.likeButton)
+    const isLike = await checkSelector(page, selectors.likeButton)
+    if (isLike) {
+      await page.waitForSelector(selectors.likeButton)
+      await page.click(selectors.likeButton)
+    }
   }
 
   if (workerData.actions.includes('dislike')) {
-    await page.waitForSelector(selectors.dislikeButton)
-    await page.click(selectors.dislikeButton)
+    const isDislike = await checkSelector(page, selectors.dislikeButton)
+    if (isDislike) {
+      await page.waitForSelector(selectors.dislikeButton)
+      await page.click(selectors.dislikeButton)
+    }
   }
 
   if (workerData.actions.includes('subscribe')) {
@@ -55,6 +62,10 @@ export const seedingWorker = async (page: Page): Promise<boolean> => {
   await page.type(selectors.commentInput, workerData.comment, { delay: 120 })
   await page.waitForSelector(selectors.submitButton)
   await page.click(selectors.submitButton)
+
+  setTimeout(() => {
+    browser.close()
+  }, workerData.max_time_video * 60000)
 
   return true
 }

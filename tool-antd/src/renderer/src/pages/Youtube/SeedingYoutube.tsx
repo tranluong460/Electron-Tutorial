@@ -10,6 +10,7 @@ type FieldType = {
   actions: string[]
   comments: string
   accounts: number[]
+  max_time_video: string
 }
 
 const SeedingYoutube = (): JSX.Element => {
@@ -36,7 +37,8 @@ const SeedingYoutube = (): JSX.Element => {
       ...values,
       links: newLinks,
       comments: newComments,
-      stream: Number(values.stream)
+      stream: Number(values.stream),
+      max_time_video: Number(values.max_time_video)
     })
   }
 
@@ -57,15 +59,25 @@ const SeedingYoutube = (): JSX.Element => {
         onFinish={onFinish}
         className="ml-10 2xl:w-[1250px] xl:w-[1100px] lg:w-[800px] md:w-[430px]"
         autoComplete="off"
-        initialValues={{ stream: 2 }}
+        initialValues={{ stream: 2, max_time_video: 1 }}
       >
-        <Form.Item<FieldType>
-          label="Số luồng chạy đồng thời"
-          name="stream"
-          rules={[{ required: true, message: 'Vui lòng nhập số luồng chạy!' }]}
-        >
-          <InputNumber />
-        </Form.Item>
+        <div className="flex">
+          <Form.Item<FieldType>
+            label="Số luồng chạy đồng thời"
+            name="stream"
+            rules={[{ required: true, message: 'Vui lòng nhập số luồng chạy!' }]}
+          >
+            <InputNumber min={1} />
+          </Form.Item>
+
+          <Form.Item<FieldType>
+            label="Xem video tối đa (phút)"
+            name="max_time_video"
+            rules={[{ required: true, message: 'Thời gian xem video' }]}
+          >
+            <InputNumber min={1} />
+          </Form.Item>
+        </div>
 
         <Form.Item
           label="Chọn tài khoản"
