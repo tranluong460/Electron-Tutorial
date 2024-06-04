@@ -19,7 +19,7 @@ export const AccountYoutubeModel = {
   },
   createNewDataExcel: async (payload: IDataExcelYoutube): Promise<boolean> => {
     try {
-      await accountYoutubeRepo().upsert(payload, { conflictPaths: ['email'] })
+      await accountYoutubeRepo().upsert(payload.dataAccount, { conflictPaths: ['email'] })
 
       return true
     } catch (error) {

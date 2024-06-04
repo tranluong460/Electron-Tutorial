@@ -86,7 +86,7 @@ const TitleTableYoutube = ({ dataSelection }: TitleTableYoutubeType): JSX.Elemen
 
       <Flex align="center" justify="end" gap="large">
         <Button onClick={toggleOpenDrawer}>Nhập dữ liệu</Button>
-        <Button onClick={handleSetCategory}>Thêm danh mục</Button>
+        <Button onClick={handleSetCategory}>Sửa danh mục</Button>
         <Button danger onClick={handleDeleteAccount}>
           Xóa tài khoản
         </Button>

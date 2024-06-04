@@ -4,10 +4,13 @@ export const Youtube = {
   getAllAccount: async (): Promise<AccountYoutube[]> => {
     return await window.api.youtube.getAllAccount()
   },
-  importExcel: async (): Promise<IDataExcelYoutube[]> => {
-    return await window.api.youtube.importExcel()
+  importExcel: async (payload: string): Promise<IDataExcelYoutube[]> => {
+    return await window.api.youtube.importExcel(payload)
   },
-  createNewDataExcel: async (payload: IDataExcelYoutube[] | AccountYoutube): Promise<boolean> => {
+  importText: async (payload: string): Promise<IDataExcel[]> => {
+    return await window.api.youtube.importText(payload)
+  },
+  createNewDataExcel: async (payload: IDataExcelYoutube | AccountYoutube): Promise<boolean> => {
     return await window.api.youtube.createNewDataExcel(payload)
   },
   seedingVideo: async (payload: ISeedingNew): Promise<boolean> => {

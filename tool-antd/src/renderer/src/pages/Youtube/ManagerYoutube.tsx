@@ -16,6 +16,8 @@ const ManagerYoutube = (): JSX.Element => {
     setOpenModalEdit(true)
   }
 
+  console.log(dataAccount)
+
   const toggleModal = (): void => {
     setDataEdit(null)
     setOpenModalEdit(!openModalEdit)
@@ -37,6 +39,11 @@ const ManagerYoutube = (): JSX.Element => {
       title: 'Password',
       dataIndex: 'password',
       key: 'password'
+    },
+    {
+      title: 'Email Recovery',
+      dataIndex: 'emailRecovery',
+      key: 'emailRecovery'
     },
     {
       title: 'Phone',

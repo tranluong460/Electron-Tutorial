@@ -12,8 +12,11 @@ export class AccountYoutube extends BaseEntity {
   @Column('nvarchar')
   password: string
 
-  @Column('nvarchar')
+  @Column('nvarchar', { nullable: true })
   phone: string
+
+  @Column('nvarchar', { nullable: true })
+  emailRecovery: string
 
   @ManyToOne(() => Category, (category) => category.id, { onDelete: 'CASCADE' })
   categoryId: Category

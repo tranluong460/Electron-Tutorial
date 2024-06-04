@@ -67,7 +67,11 @@ const SeedingYoutube = (): JSX.Element => {
           <InputNumber />
         </Form.Item>
 
-        <Form.Item label="Chọn tài khoản" name="accounts">
+        <Form.Item
+          label="Chọn tài khoản"
+          name="accounts"
+          rules={[{ required: true, message: 'Chọn 1 tài khoản!' }]}
+        >
           <Select
             mode="multiple"
             options={
@@ -88,15 +92,23 @@ const SeedingYoutube = (): JSX.Element => {
           <Input.TextArea rows={4} placeholder="Mỗi link video là một dòng" />
         </Form.Item>
 
-        <Form.Item<FieldType> label="Hành động" name="actions">
+        <Form.Item<FieldType>
+          label="Hành động"
+          name="actions"
+          rules={[{ required: true, message: 'Chọn 1 hành động!' }]}
+        >
           <Checkbox.Group options={checkBoxOptions} />
         </Form.Item>
 
-        <Form.Item<FieldType> label="Nội dung bình luận" name="comments">
+        <Form.Item<FieldType>
+          label="Nội dung bình luận"
+          name="comments"
+          rules={[{ required: true, message: 'Nhập nội dung!' }]}
+        >
           <Input.TextArea rows={4} placeholder="Mỗi bình luận là một dòng" />
         </Form.Item>
 
-        <Form.Item className="flex items-center justify-center" wrapperCol={{ offset: 6 }}>
+        <Form.Item className="flex items-center justify-center">
           <Button type="primary" htmlType="submit">
             Bắt đầu
           </Button>

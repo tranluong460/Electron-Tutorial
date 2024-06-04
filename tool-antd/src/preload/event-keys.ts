@@ -23,6 +23,7 @@ const eventKeys = {
   youtube: {
     getAllAccount: 'youtube:get_all_account',
     importExcel: 'youtube:import_excel',
+    importText: 'youtube:import_text',
     createNewDataExcel: 'youtube:create_new_data_excel',
     seedingVideo: 'youtube:seeding_video',
     deleteAccount: 'youtube:delete_account',

@@ -6,8 +6,12 @@ declare global {
     password: string
     his?: string
   }
-  interface IDataExcelYoutube {
+  interface IDataExcel {
     [key: string]: CellValue
+  }
+  interface IDataExcelYoutube {
+    type: string
+    dataAccount: IDataExcel[]
   }
   interface ISeedingNew {
     stream: number

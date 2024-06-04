@@ -13,14 +13,15 @@ export default class XlsxFile {
     XlsxFile.wb = new ExcelJS.Workbook()
   }
 
-  async readFile(sheet: string): Promise<IDataExcelYoutube[]> {
+  async readFile(sheet: string, type: string): Promise<IDataExcel[]> {
     return await XlsxFile.wb.xlsx.readFile(this.path).then((workbook) => {
       const ws = workbook.getWorksheet(sheet)
 
       if (!ws) return []
 
-      const data: IDataExcelYoutube[] = []
-      const columns = ['email', 'password', 'phone']
+      const data: IDataExcel[] = []
+      const columns = type.split('|')
+
       const rowCount = ws.rowCount
 
       for (let rowIndex = 1; rowIndex <= rowCount; rowIndex++) {

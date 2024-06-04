@@ -6,6 +6,7 @@ import XlsxFile from '@system/helpers/XlsxFile'
 import { delay } from '@system/helpers'
 import workerApi from '@main/workers/youtube/seedingWorker?nodeWorker'
 import fastq from 'fastq'
+import fs from 'fs'
 
 const createWorker = async (data, cb): Promise<void> => {
   workerApi({
@@ -24,24 +25,58 @@ export const IpcMainYoutube = (): void => {
   ipcMain.handle(eventKeys.youtube.getAllAccount, async (): Promise<AccountYoutube[]> => {
     return await AccountYoutubeModel.getAllAccount()
   })
-  ipcMain.handle(eventKeys.youtube.importExcel, async (): Promise<IDataExcelYoutube[]> => {
-    const result = await dialog.showOpenDialog({
-      properties: ['openFile'],
-      filters: [{ name: 'XLSX', extensions: ['xlsx', 'xls'] }]
-    })
+  ipcMain.handle(
+    eventKeys.youtube.importExcel,
+    async (_, payload: string): Promise<IDataExcel[]> => {
+      const result = await dialog.showOpenDialog({
+        properties: ['openFile'],
+        filters: [{ name: 'XLSX', extensions: ['xlsx', 'xls'] }]
+      })
 
-    if (result.canceled || result.filePaths.length === 0) return []
+      if (result.canceled || result.filePaths.length === 0) return []
 
-    const filePath = result.filePaths[0]
+      const filePath = result.filePaths[0]
 
-    const xlsx = new XlsxFile(filePath)
+      const xlsx = new XlsxFile(filePath)
 
-    const data = await xlsx.readFile('Google')
+      const data = await xlsx.readFile('Google', payload)
 
-    if (!data) return []
+      if (!data) return []
 
-    return data
-  })
+      return data
+    }
+  )
+  ipcMain.handle(
+    eventKeys.youtube.importText,
+    async (_, payload: string): Promise<IDataExcel[]> => {
+      const result = await dialog.showOpenDialog({
+        properties: ['openFile'],
+        filters: [{ name: 'TXT', extensions: ['txt'] }]
+      })
+
+      if (result.canceled || result.filePaths.length === 0) return []
+
+      const filePath = result.filePaths[0]
+
+      const data = fs.readFileSync(filePath, 'utf-8')
+
+      if (!data) return []
+
+      const lines = data.trim().split('\n')
+      const type = payload.split('|')
+
+      const formattedData = lines.map((line) => {
+        const [email, password, phone] = line.split('|')
+        return {
+          [type[0]]: email,
+          [type[1]]: password,
+          [type[2]]: phone
+        }
+      })
+
+      return formattedData
+    }
+  )
   ipcMain.handle(eventKeys.youtube.createNewDataExcel, async (_, payload): Promise<boolean> => {
     await delay(1000)
     return await AccountYoutubeModel.createNewDataExcel(payload)

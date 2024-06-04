@@ -6,10 +6,13 @@ export const ipcRendererYoutube = {
   getAllAccount: async (): Promise<AccountYoutube> => {
     return await ipcRenderer.invoke(eventKeys.youtube.getAllAccount)
   },
-  importExcel: async (): Promise<IDataExcelYoutube[]> => {
-    return await ipcRenderer.invoke(eventKeys.youtube.importExcel)
+  importExcel: async (payload: string): Promise<IDataExcelYoutube[]> => {
+    return await ipcRenderer.invoke(eventKeys.youtube.importExcel, payload)
   },
-  createNewDataExcel: async (payload: IDataExcelYoutube[]): Promise<boolean> => {
+  importText: async (payload: string): Promise<IDataExcel[]> => {
+    return await ipcRenderer.invoke(eventKeys.youtube.importText, payload)
+  },
+  createNewDataExcel: async (payload: IDataExcelYoutube): Promise<boolean> => {
     return await ipcRenderer.invoke(eventKeys.youtube.createNewDataExcel, payload)
   },
   seedingVideo: async (payload: ISeedingNew): Promise<boolean> => {

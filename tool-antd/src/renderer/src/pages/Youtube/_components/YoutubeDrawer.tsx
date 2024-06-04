@@ -1,6 +1,6 @@
 import { Youtube } from '@renderer/apis'
 import { useState } from 'react'
-import { Button, Drawer, Flex, Form, Input, Table, message } from 'antd'
+import { Button, Drawer, Flex, Form, Input, Select, Table, message } from 'antd'
 import type { FormProps, TableProps } from 'antd'
 import { AccountYoutube } from '@system/database/entities'
 
@@ -12,35 +12,54 @@ type YoutubeDrawerDrawerProps = {
 const YoutubeDrawer = ({ openDrawer, toggleOpenDrawer }: YoutubeDrawerDrawerProps): JSX.Element => {
   const key = 'import_excel_account_youtube'
   const [messageApi, contextHolder] = message.useMessage()
-  const [dataAccount, setDataAccount] = useState<IDataExcelYoutube[]>([])
+  const [dataAccount, setDataAccount] = useState<IDataExcel[]>([])
+  const [type, setType] = useState<string>()
 
-  const columns: TableProps<IDataExcelYoutube>['columns'] = [
+  const columns: TableProps<IDataExcel>['columns'] = [
     {
       title: 'STT',
       key: 'stt',
       render: (_t, _r, index) => index + 1
     },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email'
-    },
-    {
-      title: 'Password',
-      dataIndex: 'password',
-      key: 'password'
-    },
-    {
-      title: 'Phone',
-      dataIndex: 'phone',
-      key: 'phone'
-    }
+    ...(type === 'email|password|phone'
+      ? [
+          { title: 'Email', dataIndex: 'email', key: 'email' },
+          { title: 'Password', dataIndex: 'password', key: 'password' },
+          { title: 'Phone', dataIndex: 'phone', key: 'phone' }
+        ]
+      : [
+          { title: 'Email', dataIndex: 'email', key: 'email' },
+          { title: 'Password', dataIndex: 'password', key: 'password' },
+          { title: 'Email Recovery', dataIndex: 'emailRecovery', key: 'emailRecovery' }
+        ])
   ]
 
-  const toggleImportExcel = async (): Promise<void> =>
-    await Youtube.importExcel().then((result) => {
+  const handleChange = (value: string): void => {
+    setDataAccount([])
+    setType(value)
+  }
+
+  const toggleImportExcel = async (): Promise<void> => {
+    if (!type) {
+      message.error('Vui lòng chọn kiểu dữ liệu')
+      return
+    }
+
+    await Youtube.importExcel(type).then((result) => {
       setDataAccount(result)
     })
+  }
+
+  const toggleImportText = async (): Promise<void> => {
+    if (!type) {
+      message.error('Vui lòng chọn kiểu dữ liệu')
+      return
+    }
+
+    await Youtube.importText(type).then((result) => {
+      setDataAccount(result)
+    })
+  }
 
   const createNewDataExcel = async (): Promise<void> => {
     if (!dataAccount) return
@@ -51,7 +70,12 @@ const YoutubeDrawer = ({ openDrawer, toggleOpenDrawer }: YoutubeDrawerDrawerProp
       content: 'Loading...'
     })
 
-    await Youtube.createNewDataExcel(dataAccount).then((result) => {
+    if (!type) return
+
+    await Youtube.createNewDataExcel({
+      dataAccount,
+      type
+    }).then((result) => {
       if (result) {
         messageApi.open({
           key,
@@ -119,17 +143,7 @@ const YoutubeDrawer = ({ openDrawer, toggleOpenDrawer }: YoutubeDrawerDrawerProp
         onClose={toggleOpenDrawer}
       >
         <Flex vertical gap="large">
-          <Flex align="center" justify="end">
-            <Button onClick={toggleImportExcel}>Excel</Button>
-          </Flex>
-
-          <Form
-            layout="vertical"
-            className="p-5"
-            style={{ maxWidth: 600 }}
-            onFinish={onFinish}
-            autoComplete="off"
-          >
+          <Form layout="horizontal" onFinish={onFinish} autoComplete="off">
             <Form.Item<AccountYoutube> label="Email" name="email">
               <Input />
             </Form.Item>
@@ -149,7 +163,27 @@ const YoutubeDrawer = ({ openDrawer, toggleOpenDrawer }: YoutubeDrawerDrawerProp
             </Form.Item>
           </Form>
 
-          <Table rowKey="email" bordered columns={columns} dataSource={dataAccount} />
+          <Table
+            title={() => (
+              <Flex align="center" gap={10} justify="end">
+                <Select
+                  defaultValue={type}
+                  style={{ width: 250 }}
+                  onChange={handleChange}
+                  options={[
+                    { value: 'email|password|phone', label: 'email|password|phone' },
+                    { value: 'email|password|emailRecovery', label: 'email|password|emailRecovery' }
+                  ]}
+                />
+                <Button onClick={toggleImportExcel}>Excel</Button>
+                <Button onClick={toggleImportText}>Text</Button>
+              </Flex>
+            )}
+            rowKey="email"
+            bordered
+            columns={columns}
+            dataSource={dataAccount}
+          />
         </Flex>
       </Drawer>
     </>
