@@ -27,6 +27,10 @@ const eventKeys = {
     seedingVideo: 'youtube:seeding_video',
     deleteAccount: 'youtube:delete_account',
     editAccount: 'youtube:edit_account'
+  },
+  category: {
+    create: 'category:create',
+    getAll: 'category:get_all'
   }
 }
 

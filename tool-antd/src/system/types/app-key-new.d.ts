@@ -15,4 +15,7 @@ declare global {
     actions: string[]
     comments: string[]
   }
+  interface ICategoryNew {
+    name: string
+  }
 }

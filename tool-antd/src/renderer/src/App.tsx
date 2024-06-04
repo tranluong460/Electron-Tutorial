@@ -1,7 +1,14 @@
 import { Auth } from './apis'
 import { useEffect, useState } from 'react'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
-import { BasePage, HomePage, SeedingYoutube, ManagerYoutube, LoginPage } from './pages'
+import {
+  BasePage,
+  HomePage,
+  SeedingYoutube,
+  ManagerYoutube,
+  LoginPage,
+  CategoryYoutube
+} from './pages'
 
 function App(): JSX.Element {
   const [isLogin, setIsLogin] = useState(false)
@@ -21,6 +28,7 @@ function App(): JSX.Element {
 
           <Route path="/youtube/manager" element={<ManagerYoutube />} />
           <Route path="/youtube/seeding" element={<SeedingYoutube />} />
+          <Route path="/youtube/category" element={<CategoryYoutube />} />
         </Route>
       </Routes>
     </Router>

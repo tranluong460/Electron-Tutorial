@@ -16,4 +16,8 @@ declare global {
     deleteAccount(payload: string[]): Promise<boolean>
     editAccount(payload: AccountYoutube): Promise<boolean>
   }
+  interface IpcRendererCategory {
+    create: (payload: ICategoryNew) => Promise<boolean>
+    getAll: () => Promise<Category[]>
+  }
 }

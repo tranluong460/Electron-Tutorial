@@ -9,5 +9,6 @@ declare global {
   interface Api {
     auth: IpcRendererAuth
     youtube: IpcRendererYoutube
+    category: IpcRendererCategory
   }
 }

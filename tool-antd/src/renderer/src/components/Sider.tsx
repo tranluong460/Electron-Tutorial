@@ -1,6 +1,12 @@
 import { Layout, Menu } from 'antd'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { HomeOutlined, ProductOutlined, YoutubeOutlined, CommentOutlined } from '@ant-design/icons'
+import {
+  HomeOutlined,
+  ProductOutlined,
+  YoutubeOutlined,
+  MenuOutlined,
+  CommentOutlined
+} from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 
 type MenuItem = Required<MenuProps>['items'][number]
@@ -32,7 +38,8 @@ const Sider = ({ collapsed, onCollapsed }: SiderProps): JSX.Element => {
   const menuItems: MenuItem[] = [
     getItem('Trang chủ', '/', <HomeOutlined />),
     getItem('Quản lý youtube', null, <ProductOutlined />, [
-      getItem('Quản lý tài khoản', '/youtube/manager', <YoutubeOutlined />),
+      getItem('Danh mục', '/youtube/category', <MenuOutlined />),
+      getItem('Tài khoản', '/youtube/manager', <YoutubeOutlined />),
       getItem('Seeding', '/youtube/seeding', <CommentOutlined />)
     ])
   ]

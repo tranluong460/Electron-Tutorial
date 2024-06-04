@@ -67,7 +67,7 @@ const ManagerYoutube = (): JSX.Element => {
 
   useEffect(() => {
     getDataAccount()
-  }, [dataAccount])
+  }, [])
 
   return (
     <>

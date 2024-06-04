@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Flex, message } from 'antd'
-import { ImportYoutubeDrawer } from './.'
+import { YoutubeDrawer } from './.'
 import { Youtube } from '@renderer/apis'
 
 type TitleTableYoutubeType = {
@@ -30,7 +30,7 @@ const TitleTableYoutube = ({ dataSelection }: TitleTableYoutubeType): JSX.Elemen
         </Button>
       </Flex>
 
-      <ImportYoutubeDrawer openDrawer={openDrawer} toggleOpenDrawer={toggleOpenDrawer} />
+      <YoutubeDrawer openDrawer={openDrawer} toggleOpenDrawer={toggleOpenDrawer} />
     </>
   )
 }

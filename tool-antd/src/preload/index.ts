@@ -1,11 +1,12 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { ipcRendererAuth, ipcRendererYoutube } from './ipcs'
+import { ipcRendererAuth, ipcRendererCategory, ipcRendererYoutube } from './ipcs'
 
 // Custom APIs for renderer
 const api = {
   auth: ipcRendererAuth,
-  youtube: ipcRendererYoutube
+  youtube: ipcRendererYoutube,
+  category: ipcRendererCategory
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

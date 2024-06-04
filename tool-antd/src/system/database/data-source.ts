@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { DB_FILE } from '@system/helpers'
-import { AccountYoutube, User } from './entities'
+import { AccountYoutube, Category, User } from './entities'
 import { DataSource, Repository, SelectQueryBuilder } from 'typeorm'
 
 export const AppDataSource = new DataSource({
@@ -8,7 +8,7 @@ export const AppDataSource = new DataSource({
   database: DB_FILE,
   synchronize: true,
   logging: false,
-  entities: [AccountYoutube, User],
+  entities: [AccountYoutube, User, Category],
   migrations: [],
   subscribers: []
 })
@@ -20,3 +20,6 @@ export const accountYoutubeRepo = (): Repository<AccountYoutube> =>
   AppDataSource.getRepository(AccountYoutube)
 export const accountYoutubeQB = (): SelectQueryBuilder<AccountYoutube> =>
   accountYoutubeRepo().createQueryBuilder()
+
+export const categoryRepo = (): Repository<Category> => AppDataSource.getRepository(Category)
+export const categoryQB = (): SelectQueryBuilder<Category> => categoryRepo().createQueryBuilder()

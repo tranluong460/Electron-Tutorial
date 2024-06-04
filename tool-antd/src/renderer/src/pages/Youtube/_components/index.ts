@@ -1,5 +1,5 @@
-import ImportYoutubeDrawer from './ImportYoutubeDrawer'
+import YoutubeDrawer from './YoutubeDrawer'
 import TitleTableYoutube from './TitleTableYoutube'
 import EditModal from './EditModal'
 
-export { ImportYoutubeDrawer, TitleTableYoutube, EditModal }
+export { YoutubeDrawer, TitleTableYoutube, EditModal }

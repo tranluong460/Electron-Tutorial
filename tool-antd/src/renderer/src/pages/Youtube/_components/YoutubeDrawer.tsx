@@ -4,15 +4,12 @@ import { Button, Drawer, Flex, Form, Input, Table, message } from 'antd'
 import type { FormProps, TableProps } from 'antd'
 import { AccountYoutube } from '@system/database/entities'
 
-type ImportAccountYoutubeDrawerProps = {
+type YoutubeDrawerDrawerProps = {
   openDrawer: boolean
   toggleOpenDrawer: () => void
 }
 
-const ImportYoutubeDrawer = ({
-  openDrawer,
-  toggleOpenDrawer
-}: ImportAccountYoutubeDrawerProps): JSX.Element => {
+const YoutubeDrawer = ({ openDrawer, toggleOpenDrawer }: YoutubeDrawerDrawerProps): JSX.Element => {
   const key = 'import_excel_account_youtube'
   const [messageApi, contextHolder] = message.useMessage()
   const [dataAccount, setDataAccount] = useState<IDataExcelYoutube[]>([])
@@ -145,7 +142,7 @@ const ImportYoutubeDrawer = ({
               <Input />
             </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 6 }}>
+            <Form.Item className="flex justify-center items-center">
               <Button type="primary" htmlType="submit">
                 Thêm
               </Button>
@@ -159,4 +156,4 @@ const ImportYoutubeDrawer = ({
   )
 }
 
-export default ImportYoutubeDrawer
+export default YoutubeDrawer
