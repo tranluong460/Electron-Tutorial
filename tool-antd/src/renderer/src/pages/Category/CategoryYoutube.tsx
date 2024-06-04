@@ -78,13 +78,12 @@ const CategoryYoutube = (): JSX.Element => {
     toggleModal()
   }
 
-  const checkCategory = async (): Promise<void> => {
+  const checkCategory = async (): Promise<void> =>
     await Category.getAll().then((data) => setDataCategory(data))
-  }
 
   useEffect(() => {
     checkCategory()
-  }, [dataCategory])
+  }, [])
 
   return (
     <Table

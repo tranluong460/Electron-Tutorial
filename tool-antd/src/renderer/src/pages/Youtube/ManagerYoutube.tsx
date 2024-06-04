@@ -61,9 +61,7 @@ const ManagerYoutube = (): JSX.Element => {
   }
 
   const getDataAccount = async (): Promise<void> =>
-    await Youtube.getAllAccount().then((result) => {
-      setDataAccount(result)
-    })
+    await Youtube.getAllAccount().then((result) => setDataAccount(result))
 
   useEffect(() => {
     getDataAccount()

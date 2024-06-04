@@ -4,7 +4,7 @@ import {
   HomeOutlined,
   ProductOutlined,
   YoutubeOutlined,
-  MenuOutlined,
+  UserOutlined,
   CommentOutlined
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
@@ -37,9 +37,9 @@ const Sider = ({ collapsed, onCollapsed }: SiderProps): JSX.Element => {
 
   const menuItems: MenuItem[] = [
     getItem('Trang chủ', '/', <HomeOutlined />),
-    getItem('Quản lý youtube', null, <ProductOutlined />, [
-      getItem('Danh mục', '/youtube/category', <MenuOutlined />),
-      getItem('Tài khoản', '/youtube/manager', <YoutubeOutlined />),
+    getItem('Quản lý youtube', null, <YoutubeOutlined />, [
+      getItem('Danh mục', '/youtube/category', <ProductOutlined />),
+      getItem('Tài khoản', '/youtube/manager', <UserOutlined />),
       getItem('Seeding', '/youtube/seeding', <CommentOutlined />)
     ])
   ]
