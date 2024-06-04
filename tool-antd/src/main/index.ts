@@ -8,8 +8,8 @@ import { IpcMainAuth, IpcMainCategory, IpcMainYoutube } from './ipcs'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1080,
-    height: 800,
+    width: 800,
+    height: 700,
     minWidth: 1080,
     minHeight: 800,
     show: false,

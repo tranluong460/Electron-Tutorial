@@ -44,7 +44,7 @@ const SeedingYoutube = (): JSX.Element => {
       <Form
         layout="vertical"
         onFinish={onFinish}
-        className="ml-10 lg:w-[900px] md:w-[430px]"
+        className="ml-10 2xl:w-[1250px] xl:w-[1100px] lg:w-[800px] md:w-[430px]"
         autoComplete="off"
         initialValues={{ stream: 2 }}
       >
