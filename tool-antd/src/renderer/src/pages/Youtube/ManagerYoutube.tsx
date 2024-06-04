@@ -16,8 +16,6 @@ const ManagerYoutube = (): JSX.Element => {
     setOpenModalEdit(true)
   }
 
-  console.log(dataAccount)
-
   const toggleModal = (): void => {
     setDataEdit(null)
     setOpenModalEdit(!openModalEdit)

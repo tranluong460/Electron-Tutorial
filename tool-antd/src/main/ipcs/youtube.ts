@@ -4,16 +4,19 @@ import { dialog, ipcMain } from 'electron'
 import { AccountYoutubeModel } from '@system/database/models'
 import XlsxFile from '@system/helpers/XlsxFile'
 import { delay } from '@system/helpers'
-import workerApi from '@main/workers/youtube/seedingWorker?nodeWorker'
+import loginWorkerApi from '@main/workers/youtube/youtube?nodeWorker'
 import fastq from 'fastq'
 import fs from 'fs'
 
 const createWorker = async (data, cb): Promise<void> => {
-  workerApi({
+  loginWorkerApi({
     workerData: data
   })
     .on('message', (message) => {
       console.log(message)
+    })
+    .on('error', (error) => {
+      console.log(error)
     })
     .on('exit', () => {
       cb()
@@ -84,7 +87,7 @@ export const IpcMainYoutube = (): void => {
   ipcMain.handle(
     eventKeys.youtube.seedingVideo,
     async (_, payload: ISeedingNew): Promise<boolean> => {
-      const { links, comments, stream, accounts } = payload
+      const { links, comments, stream, accounts, actions } = payload
       const run = links.length > stream ? stream : links.length
 
       const queue = fastq(createWorker, run)
@@ -94,8 +97,9 @@ export const IpcMainYoutube = (): void => {
       for (let index = 0; index < links.length; index++) {
         queue.push({
           link: links[index],
-          comment: comments[index],
-          account: account_list[index]
+          comment: comments.length > 1 ? comments[index] : comments[0],
+          account: account_list.length > 1 ? account_list[index] : account_list[0],
+          actions
         })
       }
 

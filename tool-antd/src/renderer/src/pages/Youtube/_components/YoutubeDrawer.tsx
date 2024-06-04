@@ -13,7 +13,7 @@ const YoutubeDrawer = ({ openDrawer, toggleOpenDrawer }: YoutubeDrawerDrawerProp
   const key = 'import_excel_account_youtube'
   const [messageApi, contextHolder] = message.useMessage()
   const [dataAccount, setDataAccount] = useState<IDataExcel[]>([])
-  const [type, setType] = useState<string>()
+  const [type, setType] = useState<string>('')
 
   const columns: TableProps<IDataExcel>['columns'] = [
     {
@@ -63,14 +63,13 @@ const YoutubeDrawer = ({ openDrawer, toggleOpenDrawer }: YoutubeDrawerDrawerProp
 
   const createNewDataExcel = async (): Promise<void> => {
     if (!dataAccount) return
+    if (!type) return
 
     messageApi.open({
       key,
       type: 'loading',
       content: 'Loading...'
     })
-
-    if (!type) return
 
     await Youtube.createNewDataExcel({
       dataAccount,
@@ -104,7 +103,10 @@ const YoutubeDrawer = ({ openDrawer, toggleOpenDrawer }: YoutubeDrawerDrawerProp
       content: 'Loading...'
     })
 
-    await Youtube.createNewDataExcel(values).then((result) => {
+    await Youtube.createNewDataExcel({
+      dataAccount: values,
+      type
+    }).then((result) => {
       if (result) {
         messageApi.open({
           key,
@@ -153,6 +155,10 @@ const YoutubeDrawer = ({ openDrawer, toggleOpenDrawer }: YoutubeDrawerDrawerProp
             </Form.Item>
 
             <Form.Item<AccountYoutube> label="Số điện thoại" name="phone">
+              <Input />
+            </Form.Item>
+
+            <Form.Item<AccountYoutube> label="Email Recovery" name="emailRecovery">
               <Input />
             </Form.Item>
 

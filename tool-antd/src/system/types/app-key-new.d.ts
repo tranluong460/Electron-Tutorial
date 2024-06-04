@@ -11,7 +11,7 @@ declare global {
   }
   interface IDataExcelYoutube {
     type: string
-    dataAccount: IDataExcel[]
+    dataAccount: IDataExcel[] | IDataExcel
   }
   interface ISeedingNew {
     stream: number
