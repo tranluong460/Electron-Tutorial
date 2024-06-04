@@ -1,9 +1,10 @@
 import { delay } from '@system/helpers'
 import axios from 'axios'
+import { workerData } from 'node:worker_threads'
 import { KeyboardTypeOptions, Page, WaitForSelectorOptions } from 'puppeteer'
 
-const delay_time = 2000
-const timeout = 3000
+const delay_time = workerData.delay_time * 1000
+const timeout = 2000
 
 export const getCodeCaptcha = async (imageBase64: string): Promise<string | null> => {
   if (!imageBase64) return null

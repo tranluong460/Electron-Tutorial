@@ -11,6 +11,7 @@ type FieldType = {
   comments: string
   accounts: number[]
   max_time_video: string
+  delay_time: string
 }
 
 const SeedingYoutube = (): JSX.Element => {
@@ -38,7 +39,8 @@ const SeedingYoutube = (): JSX.Element => {
       links: newLinks,
       comments: newComments,
       stream: Number(values.stream),
-      max_time_video: Number(values.max_time_video)
+      max_time_video: Number(values.max_time_video),
+      delay_time: Number(values.delay_time)
     })
   }
 
@@ -59,7 +61,7 @@ const SeedingYoutube = (): JSX.Element => {
         onFinish={onFinish}
         className="ml-10 2xl:w-[1250px] xl:w-[1100px] lg:w-[800px] md:w-[430px]"
         autoComplete="off"
-        initialValues={{ stream: 2, max_time_video: 1 }}
+        initialValues={{ stream: 2, max_time_video: 1, delay_time: 3 }}
       >
         <div className="flex">
           <Form.Item<FieldType>
@@ -74,6 +76,14 @@ const SeedingYoutube = (): JSX.Element => {
             label="Xem video tối đa (phút)"
             name="max_time_video"
             rules={[{ required: true, message: 'Thời gian xem video' }]}
+          >
+            <InputNumber min={1} />
+          </Form.Item>
+
+          <Form.Item<FieldType>
+            label="Thời gian đợi 1 hành động (giây)"
+            name="delay_time"
+            rules={[{ required: true, message: 'Thời gian đợi 1 hành động' }]}
           >
             <InputNumber min={1} />
           </Form.Item>

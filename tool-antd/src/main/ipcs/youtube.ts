@@ -87,7 +87,7 @@ export const IpcMainYoutube = (): void => {
   ipcMain.handle(
     eventKeys.youtube.seedingVideo,
     async (_, payload: ISeedingNew): Promise<boolean> => {
-      const { links, comments, stream, accounts, actions, max_time_video } = payload
+      const { links, comments, stream, accounts, actions, max_time_video, delay_time } = payload
 
       const queue = fastq(createWorker, stream)
 
@@ -104,7 +104,9 @@ export const IpcMainYoutube = (): void => {
           comment: comments[Math.floor(Math.random() * comments.length)],
           account: account_list[indexAcc],
           actions,
-          max_time_video
+          max_time_video,
+          index,
+          delay_time
         })
       }
 

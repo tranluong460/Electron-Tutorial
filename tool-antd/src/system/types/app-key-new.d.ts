@@ -14,6 +14,7 @@ declare global {
     dataAccount: IDataExcel[] | IDataExcel
   }
   interface ISeedingNew {
+    delay_time: number
     stream: number
     max_time_video: number
     accounts: number[]

@@ -1,9 +1,6 @@
 import { Browser, Page } from 'puppeteer'
-import { parentPort, workerData } from 'worker_threads'
+import { workerData } from 'worker_threads'
 import { checkSelector } from '.'
-
-const port = parentPort
-if (!port) throw new Error('IllegalState')
 
 // cspell: disable
 const selectors = {
