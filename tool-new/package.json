@@ -26,33 +26,27 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "@types/lodash": "^4.17.4",
-    "antd": "^5.17.4",
-    "axios": "^1.7.2",
-    "better-sqlite3": "^10.0.0",
-    "bufferutil": "^4.0.8",
-    "electron-updater": "^6.1.7",
-    "fastq": "^1.17.1",
-    "puppeteer": "^22.10.0",
+    "better-sqlite3": "^11.0.0",
+    "electron-updater": "^6.3.0-alpha.4",
+    "puppeteer-core": "^22.10.0",
     "react-router-dom": "^6.23.1",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.20",
-    "utf-8-validate": "^6.0.4"
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
-    "@electron-toolkit/eslint-config-ts": "^1.0.1",
+    "@electron-toolkit/eslint-config-ts": "^2.0.0",
     "@electron-toolkit/tsconfig": "^1.0.1",
-    "@swc/core": "^1.5.25",
-    "@types/node": "^18.19.9",
+    "@swc/core": "^1.5.7",
+    "@types/node": "^20.14.1",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
-    "electron": "^28.2.0",
-    "electron-builder": "^24.9.1",
+    "electron": "^30.0.9",
+    "electron-builder": "^25.0.0-alpha.9",
     "electron-vite": "^2.0.0",
-    "eslint": "^8.56.0",
+    "eslint": "^9.4.0",
     "eslint-plugin-react": "^7.33.2",
     "exceljs": "^4.4.0",
     "postcss": "^8.4.38",
@@ -61,6 +55,8 @@
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.3.3",
-    "vite": "^5.0.12"
+    "vite": "^5.0.12",
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0"
   }
 }

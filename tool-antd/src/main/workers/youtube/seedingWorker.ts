@@ -1,4 +1,3 @@
-import { Browser, Page } from 'puppeteer'
 import { workerData } from 'worker_threads'
 import { checkSelector } from '.'
 
@@ -13,7 +12,7 @@ const selectors = {
 }
 // cspell: enable
 
-export const seedingWorker = async (page: Page, browser: Browser): Promise<boolean> => {
+export const seedingWorker = async (page, browser): Promise<boolean> => {
   await page.goto(workerData.link, { waitUntil: 'networkidle0' })
 
   await page.evaluate(

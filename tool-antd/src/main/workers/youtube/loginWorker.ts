@@ -1,6 +1,5 @@
 import { parentPort, workerData } from 'worker_threads'
 import { checkSelector, clickSelector, decodedCaptchaImage, writeText } from '.'
-import { Page } from 'puppeteer'
 
 const port = parentPort
 if (!port) throw new Error('IllegalState')
@@ -23,7 +22,7 @@ const selectors = {
 }
 // cspell: enable
 
-export const loginWorker = async (page: Page): Promise<boolean> => {
+export const loginWorker = async (page): Promise<boolean> => {
   await page.goto('https://www.youtube.com/', { waitUntil: 'networkidle0' })
   await page.click(selectors.loginButton)
 
