@@ -1,3 +1,7 @@
 export {}
 
-declare global {}
+declare global {
+  interface IpcRendererYoutube {
+    seedingYoutube: () => Promise<void>
+  }
+}

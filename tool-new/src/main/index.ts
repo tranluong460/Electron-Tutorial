@@ -3,6 +3,7 @@ import { join } from 'path'
 import { AppDataSource } from '@system/database/data-source'
 import { app, shell, BrowserWindow } from 'electron'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import { IpcMainYoutube } from './ipcs'
 
 function createWindow(): void {
   // Create the browser window.
@@ -51,6 +52,7 @@ app.whenReady().then(() => {
   })
 
   AppDataSource.initialize().then(() => {
+    IpcMainYoutube()
     createWindow()
   })
 

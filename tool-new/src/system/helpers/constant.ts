@@ -16,9 +16,10 @@ const getPathUser = (dir: string[]): string => {
 
 // App Path
 export const APP_DIR = getPathApp()
-export const BROWSER_DIR = getPathApp(['mkt-browser'])
+export const BROWSER_DIR = getPathApp(['libs', 'data', 'mkt-browser'])
 
 // Path file
 export const DB_FILE = getPathUser([`${APP_ID}.db`])
 export const AUTH_FILE = getPathUser(['auth.json'])
+export const ACCOUNT_FILE = getPathUser(['account.json'])
 export const LOGGER_FILE = getPathUser(['Logs'])

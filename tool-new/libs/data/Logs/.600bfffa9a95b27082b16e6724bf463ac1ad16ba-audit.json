@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 7
+    },
+    "auditLog": "D:\\Electron-Tutorial\\tool-new\\libs\\data\\Logs\\.600bfffa9a95b27082b16e6724bf463ac1ad16ba-audit.json",
+    "files": [
+        {
+            "date": 1717573758476,
+            "name": "D:\\Electron-Tutorial\\tool-new\\libs\\data\\Logs\\2024-06-05.log",
+            "hash": "e4f75664feb30f1f36a436355942d358ccb337b955feeec171afbed5b0b4be7c"
+        }
+    ],
+    "hashType": "sha256"
+}

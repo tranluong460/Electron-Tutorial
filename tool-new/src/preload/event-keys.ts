@@ -14,6 +14,10 @@ const crud = (
   delete: `${resource}:delete`
 })
 
-const eventKeys = {}
+const eventKeys = {
+  youtube: {
+    seedingYoutube: 'youtube:seeding_youtube'
+  }
+}
 
 export { crud, eventKeys }

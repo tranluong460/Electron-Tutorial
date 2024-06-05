@@ -6,5 +6,7 @@ declare global {
     api: Api
   }
 
-  interface Api {}
+  interface Api {
+    youtube: IpcRendererYoutube
+  }
 }
