@@ -2,8 +2,8 @@
 import { queueAsPromised } from 'fastq'
 import _ from 'lodash'
 import { EventEmitter } from 'node:events'
-import { Account } from '../db/entity'
-import { AccountModel } from '../db/model/Account'
+import { Account } from '../database/entities'
+import { AccountModel } from '../database/models'
 import { logger } from '../utils'
 
 const kPositionFreedEvent = Symbol('kPositionFreedEvent')
