@@ -1,42 +1,35 @@
+import _ from 'lodash'
+import util from 'util'
+import child_process from 'child_process'
+
 export const logger = {}
 
-import * as net from 'net'
+const exec = util.promisify(child_process.exec)
 
-const MIN_PORT = 1024
-const MAX_PORT = 65535
-
-const isPortAvailable = (port: number): Promise<boolean> => {
-  return new Promise((resolve, reject) => {
-    const server = net.createServer()
-    // eslint-disable-next-line
-    server.once('error', (err: any) => {
-      if (err.code === 'EADDRINUSE') {
-        resolve(false) // Cổng đang được sử dụng
-      } else {
-        reject(err)
-      }
-    })
-
-    server.once('listening', () => {
-      server.close(() => {
-        resolve(true) // Cổng khả dụng
-      })
-    })
-
-    server.listen(port)
-  })
+export const execProcess = async (command: string, timeout: number): Promise<string | null> => {
+  return await exec(command, { timeout })
+    .then(({ stdout }: { stdout: string }) => stdout)
+    .catch((): null => null)
 }
 
 export const findAvailablePort = async (): Promise<number> => {
-  for (let port = MIN_PORT; port <= MAX_PORT; port++) {
-    try {
-      const available = await isPortAvailable(port)
-      if (available) {
-        return port
-      }
-    } catch (error) {
-      console.error(`Error checking port ${port}:`, error)
-    }
+  const findPort = (): Promise<number> => {
+    return new Promise<number>((resolve) => {
+      const interval = setInterval(async () => {
+        const port = _.random(50000, 51000)
+        const portUsed = await execProcess(`netstat -ano | findstr :${port}`, 5000) // cspell: disable-line
+        if (!portUsed) {
+          clearInterval(interval)
+          resolve(port)
+        }
+      }, 500)
+    })
   }
-  throw new Error('No available ports found')
+
+  const taskResult = await Promise.any([
+    findPort(),
+    new Promise<number>((resolve) => setTimeout(() => resolve(-1), 10000))
+  ])
+
+  return taskResult === -1 ? 51000 : taskResult
 }

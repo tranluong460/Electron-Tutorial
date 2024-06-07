@@ -7,11 +7,9 @@ const port = parentPort
 if (!port) throw new Error('IllegalState')
 
 const youtubeWorker = async (): Promise<void> => {
-  const port = await launchProcessBrowser('')
+  const port = await launchProcessBrowser('0:0')
 
   if (!port) throw new Error('No Port')
-
-  console.log({ port })
 
   const launcher = await connectBrowser(port)
 
